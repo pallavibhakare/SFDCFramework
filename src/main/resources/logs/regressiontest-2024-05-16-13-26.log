@@ -1,0 +1,6 @@
+2024-05-16-13:26:31 INFO  LoginPage: enterUsername : Started
+2024-05-16-13:26:32 INFO  Entered username: pallavi@qa.com
+2024-05-16-13:26:32 INFO  LoginPage: Checking if username value is entered in username field
+2024-05-16-13:26:32 INFO  LoginPage: clearPassword : Started
+2024-05-16-13:26:32 INFO  LoginPage: Checking if password field is empty
+2024-05-16-13:26:33 INFO  LoginPage: clickLoginButton : Started

@@ -1,0 +1,9 @@
+2024-05-16-14:29:58 INFO  LoginPage: enterUsername : Started
+2024-05-16-14:29:59 INFO  Entered username: pallavi@qa.com
+2024-05-16-14:29:59 INFO  LoginPage: enterPassword : Started
+2024-05-16-14:29:59 INFO  Entered password
+2024-05-16-14:29:59 INFO  LoginPage: Select 'Remember Me' checkbox
+2024-05-16-14:29:59 INFO  LoginPage: clickLoginButton : Started
+2024-05-16-14:30:03 INFO  Usermenu is clicked
+2024-05-16-14:30:03 INFO  Clicked Lougout.
+2024-05-16-14:30:04 INFO  LoginPage: Checking if 'Remember Me' checkbox is selected

@@ -1,0 +1,6 @@
+2024-05-17-08:21:41 INFO  LoginPage: enterUsername : Started
+2024-05-17-08:21:41 INFO  Entered wrong Username 123
+2024-05-17-08:21:41 INFO  LoginPage: Checking if username value is entered in username field
+2024-05-17-08:21:41 INFO  LoginPage: enterWrongPassword : Started
+2024-05-17-08:21:42 INFO  Entered wrong Password
+2024-05-17-08:21:42 INFO  LoginPage: clickLoginButton : Started

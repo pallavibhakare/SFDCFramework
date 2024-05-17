@@ -1,0 +1,5 @@
+2024-05-16-13:32:27 INFO  LoginPage: enterUsername : Started
+2024-05-16-13:32:28 INFO  Entered username: pallavi@qa.com
+2024-05-16-13:32:28 INFO  LoginPage: enterPassword : Started
+2024-05-16-13:32:28 INFO  Entered password
+2024-05-16-13:32:28 INFO  LoginPage: clickLoginButton : Started
