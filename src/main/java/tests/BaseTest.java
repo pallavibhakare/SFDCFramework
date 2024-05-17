@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
@@ -20,6 +21,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import constants.FileConstants;
+import io.reactivex.rxjava3.functions.Action;
 import pages.LoginPage;
 import utils.DataUtils;
 import utils.WaitUtils;
@@ -99,11 +101,58 @@ public class BaseTest {
 		return driver;
 
 	}
-	public static String launchApplicationURL(WebDriver driver) throws IOException {	
-		
-		return DataUtils.readLoginTestData("url");
-	}
 	
+	//reusable methods
+	public void goToUrl() throws IOException {
+		String url=DataUtils.readLoginTestData("url");			
+        driver.get(url);
+        System.out.println(url + " is entered");
+    }
+	public void maximiseBrowser() {
+        driver.manage().window().maximize();
+        System.out.println("Browser window has maximized");
+    }
+
+    public void closeBrowser() {
+        driver.close();
+        System.out.println("Browser closed");
+    }
+
+    public void enterText(WebElement ele, String data, String objName) {
+        if (ele.isDisplayed()) {
+            ele.clear();
+            ele.sendKeys(data);
+            System.out.println("Data is entered in the " + objName);
+        } else {
+            System.out.println(objName + " element is not displayed");
+        }
+    }
+
+    public void clickElement(WebElement ele, String objName) {
+        if (ele.isEnabled()) {
+            ele.click();
+            System.out.println(objName + " button is clicked");
+        } else {
+            System.out.println("Button element is not enabled");
+        }
+    }
+
+    public void moveToElement(WebElement element, String objName) {
+    	Actions actions = new Actions(driver);
+        actions.moveToElement(element).build().perform();
+        System.out.println("Moved to the element: " + objName);
+    }
+
+    public void login(String username, String password) {
+        WebElement userName = driver.findElement(By.xpath("//input[contains(@id, 'username')]"));
+        enterText(userName, username, "Username Field");
+
+        WebElement pwd = driver.findElement(By.xpath("//input[contains(@id, 'password')]"));
+        enterText(pwd, password, "Password Field");
+
+        WebElement loginButton = driver.findElement(By.xpath("//input[contains(@id, 'Login')]"));
+        clickElement(loginButton, "Login Button");
+    }
 	//for clicking dropdown(clickDropDown)  and selecting DD option(selectDropdownOption)
 	public static void clickDropDown(WebElement dropdownElement  ) {
 		if(dropdownElement.isDisplayed()) {
