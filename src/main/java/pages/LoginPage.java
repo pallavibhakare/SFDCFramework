@@ -79,7 +79,9 @@ public class LoginPage extends BasePage{
 	}
 	
 	//TC-02 Login to Salesforce
-	public void loginToSFDC(String userEmail, String userPassword) {
+	public void loginToSFDC(WebDriver driver) throws IOException {
+		String userEmail = DataUtils.readLoginTestData("username");
+		String userPassword = DataUtils.readLoginTestData("password");
 		logger.info("Signing in to application");
 		this.usernameField.clear();
 		this.usernameField.sendKeys(userEmail);
@@ -105,11 +107,7 @@ public class LoginPage extends BasePage{
 	        logger.error("LoginPage: enterUserName : " + e.getMessage());
 	        throw e;
 	    }
-	}	
-	public String getUsername(WebDriver driver) {				
-		String username = usernameField.getText();
-		return username;
-	}
+	}		
 		
 	public void enterPassword() throws IOException  {
 		logger.info("LoginPage: enterPassword : Started");	
@@ -209,6 +207,19 @@ public class LoginPage extends BasePage{
 		}		
 		return isPassEntered;
 	}
+	
+	public boolean isLoggedOut(WebDriver driver) throws IOException {
+		boolean isLoggedOut = false;
+		String actualTitle = driver.getTitle();
+		String expextedTitle= DataUtils.readLoginTestData("loginPageTitle");
+		if(expextedTitle.equals(actualTitle)) {
+			isLoggedOut = true;
+		}else {
+			isLoggedOut = false;
+		}		
+		return isLoggedOut;
+	}
+	
 	
 	public boolean isHomePageLoaded(WebDriver driver) throws IOException {
 		boolean isHomePage = false;
@@ -329,5 +340,7 @@ public class LoginPage extends BasePage{
 	    }
 		
 	}
-	
+	public WebElement getUsermenu(WebDriver driver) {		
+		return userMenu;
+	}
 }

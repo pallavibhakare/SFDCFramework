@@ -1,0 +1,8 @@
+2024-05-17-23:16:12 INFO  Signing in to application
+2024-05-17-23:16:16 INFO  Should be Signing in to application
+2024-05-17-23:16:19 DEBUG Selecting an user menu option: My Settings
+2024-05-17-23:16:19 DEBUG My Settings was visible
+2024-05-17-23:16:20 DEBUG My Settings was clicked
+2024-05-17-23:16:20 DEBUG Selecting Settings: Login History option.
+2024-05-17-23:16:20 DEBUG Login History was visible
+2024-05-17-23:16:20 DEBUG Login History was clicked

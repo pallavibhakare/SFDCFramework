@@ -1,5 +1,7 @@
 package utils;
 
+import java.io.File;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -32,4 +34,23 @@ public class WaitUtils {
 		}
 		return isElementDisappered;
 	}
+	
+	public static File waitForFile(String downloadDir, String fileNamePrefix, String fileExtension) {
+        File dir = new File(downloadDir);
+        File[] matchingFiles;
+        int attempts = 0;
+        do {
+            matchingFiles = dir.listFiles((dir1, name) -> name.startsWith(fileNamePrefix) && name.endsWith(fileExtension));
+            if (matchingFiles != null && matchingFiles.length > 0) {
+                return matchingFiles[0];
+            }
+            attempts++;
+            try {
+                Thread.sleep(1000); // Wait for 1 second before retrying
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } while (attempts < 30); // Wait for up to 30 seconds
+        return null;
+    }
 }

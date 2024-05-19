@@ -1,0 +1,14 @@
+2024-05-18-22:07:34 INFO  Signing in to application
+2024-05-18-22:07:37 INFO  Should be Signing in to application
+2024-05-18-22:07:39 DEBUG Selecting an user menu option: My Settings
+2024-05-18-22:07:39 DEBUG My Settings was visible
+2024-05-18-22:07:40 DEBUG My Settings was clicked
+2024-05-18-22:07:40 DEBUG Selecting Settings: Display & Layout option.
+2024-05-18-22:07:40 DEBUG Display & Layout was visible
+2024-05-18-22:07:40 DEBUG Display & Layout was clicked
+2024-05-18-22:07:40 DEBUG Selecting Settings: Customize My Tabs option.
+2024-05-18-22:07:40 DEBUG Customize My Tabs was visible
+2024-05-18-22:07:41 DEBUG Customize My Tabs was clicked
+2024-05-18-22:07:41 DEBUG Selecting Settings: Salesforce Chatter option.
+2024-05-18-22:08:02 DEBUG Salesforce Chatter Cound not be selected
+2024-05-18-22:08:02 INFO  The 'Reports' option is present.

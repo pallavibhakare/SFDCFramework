@@ -1,0 +1,26 @@
+2024-05-19-12:02:25 INFO  Signing in to application
+2024-05-19-12:02:30 INFO  Should be Signing in to application
+2024-05-19-12:02:31 DEBUG Selecting an user menu option: My Settings
+2024-05-19-12:02:31 DEBUG My Settings was visible
+2024-05-19-12:02:32 DEBUG My Settings was clicked
+2024-05-19-12:02:32 DEBUG Selecting Settings: Login History option.
+2024-05-19-12:02:32 DEBUG Login History was visible
+2024-05-19-12:02:32 DEBUG Login History was clicked
+2024-05-19-12:02:34 DEBUG Selecting Settings: Display & Layout option.
+2024-05-19-12:02:34 DEBUG Display & Layout was visible
+2024-05-19-12:02:34 DEBUG Display & Layout was clicked
+2024-05-19-12:02:34 DEBUG Selecting Settings: Customize My Tabs option.
+2024-05-19-12:02:34 DEBUG Customize My Tabs was visible
+2024-05-19-12:02:35 DEBUG Customize My Tabs was clicked
+2024-05-19-12:02:36 DEBUG Selecting custom App: 'Salesforce Chatter' option.
+2024-05-19-12:02:36 DEBUG Salesforce Chatter is selcted
+2024-05-19-12:02:36 INFO  The 'Reports' option is present.
+2024-05-19-12:02:36 INFO  The 'Reports' option is present.
+2024-05-19-12:02:36 DEBUG Selecting Settings: My Email Settings option.
+2024-05-19-12:02:36 DEBUG My Email Settings was visible
+2024-05-19-12:02:37 DEBUG My Email Settings was clicked
+2024-05-19-12:02:38 INFO   Given details are saved as default mail options and My Settings Page is displayed.
+2024-05-19-12:02:38 DEBUG Selecting Settings: Activity Reminders option.
+2024-05-19-12:02:38 DEBUG Activity Reminders was visible
+2024-05-19-12:02:38 DEBUG Activity Reminders was clicked
+2024-05-19-12:02:38 INFO  Sample event pop up window is displayed

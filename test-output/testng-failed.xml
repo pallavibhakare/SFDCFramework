@@ -6,7 +6,7 @@
       <class name="tests.UserMenuTest">
         <methods>
           <include name="preCondition"/>
-          <include name="selectUserMenu_TC05"/>
+          <include name="selectUserMenuOptionLogout_TC09"/>
           <include name="tearDownConfiguration"/>
           <include name="postCondition"/>
           <include name="doConfiguration"/>

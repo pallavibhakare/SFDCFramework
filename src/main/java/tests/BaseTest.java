@@ -15,16 +15,12 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
-
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-
 import constants.FileConstants;
-import io.reactivex.rxjava3.functions.Action;
-import pages.LoginPage;
 import utils.DataUtils;
-import utils.WaitUtils;
+
 
 public class BaseTest {
 	
@@ -103,7 +99,7 @@ public class BaseTest {
 	}
 	
 	//reusable methods
-	public void goToUrl() throws IOException {
+	public void goToUrl(WebDriver driver) throws IOException {
 		String url=DataUtils.readLoginTestData("url");			
         driver.get(url);
         System.out.println(url + " is entered");

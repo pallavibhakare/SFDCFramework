@@ -1,0 +1,13 @@
+2024-05-18-16:12:20 INFO  Signing in to application
+2024-05-18-16:13:17 INFO  Should be Signing in to application
+2024-05-18-16:13:17 DEBUG Selecting an user menu option: My Settings
+2024-05-18-16:13:17 DEBUG My Settings was visible
+2024-05-18-16:13:19 DEBUG My Settings was clicked
+2024-05-18-16:13:19 DEBUG Selecting Settings: Display & Layout option.
+2024-05-18-16:13:19 DEBUG Display & Layout was visible
+2024-05-18-16:13:19 DEBUG Display & Layout was clicked
+2024-05-18-16:13:19 DEBUG Selecting Settings: Customize My Tabs option.
+2024-05-18-16:13:19 DEBUG Customize My Tabs was visible
+2024-05-18-16:13:19 DEBUG Customize My Tabs was clicked
+2024-05-18-16:13:20 DEBUG Selecting Settings: Salesforce Chatter option.
+2024-05-18-16:13:40 DEBUG Salesforce Chatter Cound not be selected

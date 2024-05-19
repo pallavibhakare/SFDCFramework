@@ -2,13 +2,20 @@ package pages;
 
 import java.util.List;
 import java.util.Set;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 
+import constants.FileConstants;
+import tests.BaseTest;
 import utils.CommonUtils;
+import utils.DataUtils;
 import utils.WaitUtils;
 
 public class UserMenuPage extends BasePage{
@@ -17,6 +24,9 @@ public class UserMenuPage extends BasePage{
 	}
 	@FindBy(id = "userNavLabel")
 	public WebElement userMenu;
+	
+	@FindBy(id = "userNavMenu")
+	public WebElement userNavMenu;
 
 	@FindBy(xpath = "//div[@id='userNav-menuItems']/a")
 	public List<WebElement> userMenuOptions;
@@ -77,7 +87,7 @@ public class UserMenuPage extends BasePage{
 	@FindBy(xpath = "//a[@id='publisherAttachContentPost']/span[1]")
 	public WebElement contentPost;
 
-	@FindBy(xpath = "//td[@id='chatterUploadFileActionPanel']")
+	@FindBy(xpath = "//td[@id='chatterUploadFileActionPanel']/a")
 	public WebElement uploadFile;
 
 	@FindBy(xpath = "//input[@id='chatterFile']")
@@ -153,10 +163,12 @@ public class UserMenuPage extends BasePage{
 	@FindBy(id = "tabBar")
 	public WebElement tabList;
 
+	@FindBy(id = "duel_select_1")
+	public WebElement selectedTabs;
 	// Emaillink
 
 	@FindBy(xpath = "//span[@id='EmailSetup_font']")
-	public WebElement emailLink;
+	public WebElement emailTab;
 
 	@FindBy(id = "EmailSettings_font")
 	public WebElement myEmailSettings;
@@ -178,7 +190,7 @@ public class UserMenuPage extends BasePage{
 
 	// Calendar and Remainders
 	@FindBy(id = "CalendarAndReminders_font")
-	public WebElement calendarAndReminders;
+	public WebElement calendarAndRemindersTab;
 
 	@FindBy(xpath = "//*[@id=\"Reminders_font\"]")
 	public WebElement activityRemainder;
@@ -213,8 +225,26 @@ public class UserMenuPage extends BasePage{
 	@FindBy(id = "progressIcon")
 	public WebElement fileUploadSpinner;
 	
-	public String getUserName() {
+	public String getUserName(WebDriver driver) {
 		return userMenu.getText();
+	}
+	public void getPersonalLink(WebDriver driver) {
+		personalLink.click();
+	}
+	public void getLoginHistory(WebDriver driver) {
+		downloadLoginHistoryLink.click();
+	}
+	public void getCustomizeMyTab(WebDriver driver) {
+		customizedTab.click();
+	}
+	public WebElement getCustomeApp() {
+		return customApp;
+	}
+	public WebElement getAvailableTab() {
+		return availableTab;
+	}
+	public WebElement getAddButton() {
+		return Add;
 	}
 	
 	public void selectUserMenu() {
@@ -226,6 +256,143 @@ public class UserMenuPage extends BasePage{
 		}
 	}
 	
+	public void PerformCustomizeMyTabOperation(WebDriver driver) {
+		getCustomizeMyTab(driver);
+		customApp.click();
+		selectCustomAppOption(driver, "Salesforce Chatter");			
+		BaseTest.selectDropdownOption(driver, availableTab, "Reports");
+		Add.click();
+	}
+	
+	public boolean checkReportsOption(WebDriver driver) {
+		//WebElement selectedTabs;		
+		Select select = new Select(selectedTabs);
+		boolean isReportsOptionPresent= select.getOptions().stream().anyMatch(option->"Reports".equals(option.getText()));
+		if(isReportsOptionPresent) {
+			logger.info("The 'Reports' option is present.");
+		}else {
+			logger.info("The 'Reports' option is not present.");
+		}
+		return isReportsOptionPresent;
+	}
+	
+	public void getEmailTab(WebDriver driver) {		
+		emailTab.click();
+		selectEmailTabOptions(driver, "My Email Settings");
+	}
+	public boolean selectEmailTabOptions(WebDriver driver, String option) {
+		boolean isOptionSelected = false;
+		logger.debug("Selecting Settings: " +option+ " option.");
+		WebElement personalOption = driver.findElement(By.xpath("//span[text()='"+ option+"']"));
+		if(WaitUtils.waitForElement(driver, personalOption)) {
+			logger.debug(option+ " was visible");
+			personalOption.click();
+			logger.debug(option+ " was clicked");
+			isOptionSelected = true;
+		}else {
+			System.out.println(option+" option is not displayed.");
+			logger.debug(option+ " Cound not be selected");
+		}
+		
+		return isOptionSelected;
+	}
+	public void performMyEmailSettings(WebDriver driver) throws IOException {
+		emailName.clear();
+		emailName.sendKeys(DataUtils.readLoginTestData("emailName"));
+		emailAddress.clear();
+		emailAddress.sendKeys(DataUtils.readLoginTestData("emailAddress"));
+		bccRadiobutton.click();
+		saveOnEmail.click();
+	}
+	public boolean isEmailSettingsSaved(WebDriver driver) throws IOException {
+		boolean isEmailSettingsSaved = false;
+		if(driver.getTitle().equals(DataUtils.readLoginTestData("emailSettingsPageTitle")) && emailSettingsConfirmation.isDisplayed()) {
+			isEmailSettingsSaved =true;
+			logger.info(" Given details are saved as default mail options and My Settings Page is displayed.");
+			
+		}else {
+			isEmailSettingsSaved = false;
+			logger.info("Can not save Email Settings.");
+		}
+		return isEmailSettingsSaved;
+	}
+	public void getCalenderAndRemindersTab(WebDriver driver) {
+		calendarAndRemindersTab.click();
+		selectCalenderAndRemindersTabOptions(driver, "Activity Reminders");
+	}
+	public boolean selectCalenderAndRemindersTabOptions(WebDriver driver, String option) {
+		boolean isOptionSelected = false;
+		logger.debug("Selecting Settings: " +option+ " option.");
+		WebElement personalOption = driver.findElement(By.xpath("//span[text()='"+ option+"']"));
+		if(WaitUtils.waitForElement(driver, personalOption)) {
+			logger.debug(option+ " was visible");
+			personalOption.click();
+			logger.debug(option+ " was clicked");
+			isOptionSelected = true;
+		}else {
+			System.out.println(option+" option is not displayed.");
+			logger.debug(option+ " Cound not be selected");
+		}
+		
+		return isOptionSelected;
+	}
+	public boolean isTestActivityReminderOpen(WebDriver driver) throws IOException {
+		boolean isTestActivityReminderOpen= false;
+		openaTestRemainder.click();
+		String actualReminderPage = driver.getTitle();
+		String expectedReminderPage = DataUtils.readLoginTestData("reminderPageTitle");
+		if(actualReminderPage.endsWith(expectedReminderPage)) {
+			isTestActivityReminderOpen= true;
+			logger.info("Sample event pop up window is displayed");
+		}else {
+			isTestActivityReminderOpen= false;
+			logger.info("Can not display Sample event pop up.");
+		}
+		return isTestActivityReminderOpen;
+	}
+	public boolean selectCustomAppOption(WebDriver driver, String option) {
+		boolean isOptionSelected = false;
+		logger.debug("Selecting custom App: '" +option+ "' option.");
+		WebElement customAppOption = driver.findElement(By.xpath("//a[text()='"+ option+"']"));
+		logger.debug(option+ " is selcted");		
+		return isOptionSelected;
+	}
+	
+	public boolean isUserMenuVisible() {
+		boolean isUserMenuVisible=false;
+		if(userNavMenu.isDisplayed()) {
+			isUserMenuVisible=true;
+		}else {
+			isUserMenuVisible=false;
+		}
+		return isUserMenuVisible;
+		
+	}
+	public boolean isUserProfilePage(WebDriver driver) {
+		boolean isUserProfilePage=false;
+		String actualPageTitle = driver.getTitle();
+		String expectedPageTitle = "User: "+getUserName(driver)+" ~ Salesforce - Developer Edition";		
+		if(actualPageTitle.equals(expectedPageTitle)) {
+			isUserProfilePage=true;
+		}else {
+			isUserProfilePage=false;
+		}
+		return isUserProfilePage;
+		
+	}
+	public boolean isMySettingsPage(WebDriver driver) {
+		boolean isUserProfilePage=false;
+		String actualPageTitle = driver.getTitle();
+		String expectedPageTitle = "Hello, "+userMenu.getText()+"! ~ Salesforce - Developer Edition";	
+		if(actualPageTitle.equals(expectedPageTitle)) {
+			isUserProfilePage=true;
+		}else {
+			isUserProfilePage=false;
+		}
+		return isUserProfilePage;
+		
+	}
+	
 	public List<String> getUserMenuOptionNames(){
 		List<String> optionNames = new ArrayList<>();
 		for(WebElement option: userMenuOptions) {
@@ -233,7 +400,6 @@ public class UserMenuPage extends BasePage{
 		}
 		return optionNames;
 	}
-	
 	
 	public boolean selectUserMenuOption(WebDriver driver, String option) {
 		boolean isOptionVerified = false;
@@ -251,6 +417,19 @@ public class UserMenuPage extends BasePage{
 		
 		return isOptionVerified;
 	}
+	public boolean isUserMenuOptionsLoaded() {
+		boolean isUserMenuOptionsLoaded=false;
+		
+		List<String>  actualOptionNames = getUserMenuOptionNames();
+		List<String> expectedOptionNames = Arrays.asList("My Profile", "My Settings","Developer Console","Switch to Lightning Experience","Logout");				
+		if(actualOptionNames.equals(expectedOptionNames)) {
+			isUserMenuOptionsLoaded=true;			
+		}else {
+			isUserMenuOptionsLoaded=false;
+		}
+		return isUserMenuOptionsLoaded;
+		
+	}
 	
 	public void selectEditIcon(WebDriver driver) {
 		if(WaitUtils.waitForElement(driver, editContactButton)) {
@@ -259,7 +438,7 @@ public class UserMenuPage extends BasePage{
 			System.out.println("Edit contact button is not visible");
 		}
 	}
-	public boolean verifyEditContactIframe(WebDriver driver) {
+	public boolean isEditContactIframe(WebDriver driver) {
 		boolean isIframeLoaded = false;
 		if(WaitUtils.waitForElement(driver, iframeAboutTab)) {
 			driver.switchTo().frame(iframeAboutTab);
@@ -271,7 +450,8 @@ public class UserMenuPage extends BasePage{
 		}
 		return isIframeLoaded;
 	}
-	public boolean verifyLastNameChangeInAboutTab(WebDriver driver, String lastName) {
+	public boolean verifyLastNameChangeInAboutTab(WebDriver driver) throws IOException {
+		String lastName = DataUtils.readLoginTestData("updateLastName");
 		boolean isLastNameChanged = false;
 		if(aboutTab.isDisplayed()) {
 			aboutTab.click();
@@ -290,7 +470,9 @@ public class UserMenuPage extends BasePage{
 		}
 		return isLastNameChanged;
 	}
-	public boolean veriyfyCreatePost(WebDriver driver, String message) {
+	
+	public boolean veriyfyCreatePost(WebDriver driver) throws IOException {
+		String message = DataUtils.readLoginTestData("createPostContent");
 		boolean isPostCreated = false;
 		if(postLink.isDisplayed()) {
 			postLink.click();
@@ -307,12 +489,12 @@ public class UserMenuPage extends BasePage{
 		return isPostCreated;
 	}
 
-	public boolean verifyFileUpload(WebDriver driver, String filePath) throws InterruptedException{
+	public boolean verifyFileUpload(WebDriver driver) throws InterruptedException{
+		String filePath = FileConstants.FILE_PATH;
 		boolean isFileUploadSuccess = false;
 		if(WaitUtils.waitForElement(driver, fileLink)) {
 			fileLink.click();
-			if(WaitUtils.waitForElement(driver, uploadFile)) {
-				//WaitUtils.waitForElement(driver, uploadFile);
+			if(WaitUtils.waitForElement(driver, uploadFile)) {			
 				uploadFile.click();
 			}
 			if(WaitUtils.waitForElement(driver, fileOpen)) {
@@ -337,10 +519,14 @@ public class UserMenuPage extends BasePage{
 			updateButton.click();
 		}
 	}	
-	public boolean verifyPhotoUpload(WebDriver driver, String imageFilePath) {
+	public boolean verifyPhotoUpload(WebDriver driver) {
+		String imageFilePath= FileConstants.IMAGE_PATH;
 		boolean isPhotoUploadedSuccess =false;
 		this.clickOnUpdatePhotoButton(driver);
+		
+		WaitUtils.waitForElement(driver,photoUploadIframe);	    
 		driver.switchTo().frame(photoUploadIframe);
+		
 		if(WaitUtils.waitForElement(driver, uploadPhoto)) {
 			uploadPhoto.sendKeys(imageFilePath);
 			photoSaveButton.click();
@@ -388,8 +574,24 @@ public class UserMenuPage extends BasePage{
 				break;	//break out of the loop after switching
 			}
 		}
-		
-
 	}	
-	
+	public boolean isDevConsoleOpen(WebDriver driver) throws IOException {
+		boolean isDevConsoleOpen=false;
+		String actualConsoleTitle = driver.getTitle();
+		System.out.println("act "+actualConsoleTitle);
+		String expectedDevConsoleTitle = DataUtils.readLoginTestData("developerConsolePageTitle");
+		System.out.println("exp "+expectedDevConsoleTitle);
+		if(actualConsoleTitle.equals(expectedDevConsoleTitle)) {
+			isDevConsoleOpen=true;
+			logger.info("Develoer Console is open");
+		}else {
+			isDevConsoleOpen=false;
+			logger.info("Can not open Develoer Console");
+		}
+		return isDevConsoleOpen;
+		
+	}
+	public WebElement getLogoutLink() {		
+		return logout;
+	}
 }

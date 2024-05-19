@@ -1,0 +1,9 @@
+2024-05-19-12:01:27 INFO  Signing in to application
+2024-05-19-12:01:33 INFO  Should be Signing in to application
+2024-05-19-12:01:34 DEBUG Selecting an user menu option: My Settings
+2024-05-19-12:01:34 DEBUG My Settings was visible
+2024-05-19-12:01:34 DEBUG My Settings was clicked
+2024-05-19-12:01:34 DEBUG Selecting Settings: Activity Reminders option.
+2024-05-19-12:01:35 DEBUG Activity Reminders was visible
+2024-05-19-12:01:36 DEBUG Activity Reminders was clicked
+2024-05-19-12:01:36 INFO  Sample event pop up window is displayed

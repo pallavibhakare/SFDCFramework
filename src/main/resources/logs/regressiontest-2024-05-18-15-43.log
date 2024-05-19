@@ -1,0 +1,11 @@
+2024-05-18-15:43:38 INFO  Signing in to application
+2024-05-18-15:43:44 INFO  Should be Signing in to application
+2024-05-18-15:43:44 DEBUG Selecting an user menu option: My Settings
+2024-05-18-15:43:45 DEBUG My Settings was visible
+2024-05-18-15:43:47 DEBUG My Settings was clicked
+2024-05-18-15:43:47 DEBUG Selecting Settings: Display & Layout option.
+2024-05-18-15:43:47 DEBUG Display & Layout was visible
+2024-05-18-15:43:47 DEBUG Display & Layout was clicked
+2024-05-18-15:43:47 DEBUG Selecting Settings: Customize My Tabs option.
+2024-05-18-15:43:47 DEBUG Customize My Tabs was visible
+2024-05-18-15:43:48 DEBUG Customize My Tabs was clicked

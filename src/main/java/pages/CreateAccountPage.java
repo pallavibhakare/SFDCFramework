@@ -81,7 +81,7 @@ public class CreateAccountPage extends BasePage{
 		String password = DataUtils.readLoginTestData("password");
 		driver.get(url);
 		logger.info("Salesforce login page is launched and application");
-		lp.loginToSFDC(userName, password);		
+		lp.loginToSFDC(driver);		
 		lp.isHomePageLoaded(driver);
 		logger.info("Home page is displayed.");		
 	}
