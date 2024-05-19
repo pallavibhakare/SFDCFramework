@@ -207,12 +207,11 @@ public class UserMenuTest extends BaseTest{
 		test.log(Status.PASS, "Logout  of current sales force application  and "+driver.getTitle()+" page is displayed.");
 	
 	}
-	
-	
+		
 	@AfterMethod
 	public void postCondition() {
 		System.out.println("Post condition: Home Page of the app");
-//		BaseTest.getDriver().close();
+		BaseTest.getDriver().close();
 	}
 
 }
