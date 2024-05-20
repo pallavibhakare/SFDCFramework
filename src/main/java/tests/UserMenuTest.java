@@ -1,12 +1,6 @@
 package tests;
 
-import java.io.File;
 import java.io.IOException;
-import java.time.Duration;
-import java.util.Arrays;
-
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -15,13 +9,10 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import constants.WaitConstants;
 import listeners.TestListener;
-import pages.BasePage;
 import pages.LoginPage;
 import pages.UserMenuPage;
-import utils.DataUtils;
 import utils.WaitUtils;
 
-import java.util.List;
 
 @Listeners(TestListener.class)
 public class UserMenuTest extends BaseTest{

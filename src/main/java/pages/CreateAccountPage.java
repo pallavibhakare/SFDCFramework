@@ -1,9 +1,16 @@
 package pages;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Random;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
+import tests.BaseTest;
 import utils.DataUtils;
 
 public class CreateAccountPage extends BasePage{
@@ -44,6 +51,9 @@ public class CreateAccountPage extends BasePage{
 	@FindBy(xpath = "//input[@id='fname']")
 	public WebElement viewName;
 	
+	@FindBy (xpath = "//div[@class='topNav primaryPalette']/div/select/option[@selected='selected']")
+	public WebElement SelectedViewName;
+	
 	@FindBy(xpath = "//input[contains(@id, 'devname')]")
 	public WebElement viewUniqueName;
 	
@@ -59,7 +69,7 @@ public class CreateAccountPage extends BasePage{
 	@FindBy(xpath = "//select[@id='fcf']/option")
 	public WebElement accountViewListSelectOption;
 	
-	@FindBy(xpath = "//*[@id='00Baj000007GEiv_filterLinks']/a[1]")
+	@FindBy(xpath = "//*[@class='filterLinks']/a[1]")
 	public WebElement editLink;
 	
 	@FindBy(id = "fcol1")
@@ -68,23 +78,65 @@ public class CreateAccountPage extends BasePage{
 	@FindBy(id = "fop1")
 	public WebElement filterOperator;
 
-	@FindBy(xpath = "fval1")
-	public WebElement filterValue;
+	@FindBy(id = "fval1")
+	public WebElement filterValue1;
 	
 	@FindBy(xpath = "//*[@id='editPage']/div[3]/table/tbody/tr/td[2]/input[1]")
 	public WebElement Save;
 	
+	@FindBy(xpath = "//span/a[contains(text(), 'Merge Accounts')]")
+	public WebElement mergeAccountsLink;
+	
+	@FindBy(id = "srch")
+	public WebElement findAccountsInput;
+	
+	@FindBy(xpath = "//div[@class='pbWizardBody']/input[@class='btn']")
+	public WebElement findAccountsButton;
+	
+	@FindBy(xpath = "//tbody//th/input[@type='checkbox']")
+	public WebElement checkboxSelect;
+	
+	@FindBy(xpath = "//div[@class='pbTopButtons']/input[contains(@title, 'Next')]")
+	public WebElement nextButton;
+	
+	@FindBy(xpath = "//div[@class='pbWizardTitle tertiaryPalette brandTertiaryBgr']/h2")
+	public WebElement mergeStepTwo;
+	
+	@FindBy(xpath = "//div[@class='pbWizardHeader']/div/input[@value=' Merge ']")
+	public WebElement mergeButton;
+	
+	@FindBy(id = "hotlist_mode")
+	public WebElement displaySelection;
+	
 	public void launchAndLoginToApplication(WebDriver driver) throws IOException {
 		LoginPage lp = new LoginPage(driver);
-		String url = DataUtils.readLoginTestData("url");
-		String userName = DataUtils.readLoginTestData("username");
-		String password = DataUtils.readLoginTestData("password");
-		driver.get(url);
+		BaseTest bt =new BaseTest();
+		bt.goToUrl(driver);		
 		logger.info("Salesforce login page is launched and application");
 		lp.loginToSFDC(driver);		
 		lp.isHomePageLoaded(driver);
 		logger.info("Home page is displayed.");		
 	}
+	public void getAccountTab(WebDriver driver) {
+		accountsLink.click();
+	}
+	public boolean isAccountsPageDisplayed(WebDriver driver) throws IOException {
+		boolean isAccountsPageDisplayed = false;
+		String actual = driver.getTitle();
+		System.out.println("act" +actual);
+		String expected = DataUtils.readLoginTestData("accountsHomePageTitle");
+		System.out.println("ex" +expected);
+		if(actual.endsWith(expected)) {
+			isAccountsPageDisplayed= true;
+			logger.info("Accounts Page is displayed");
+		}else {
+			isAccountsPageDisplayed= false;
+			logger.info("Can not display Accounts Page");
+		}
+		return isAccountsPageDisplayed;
+		
+	}
+	
 	public boolean isNewAccountEditPage(WebDriver driver) throws IOException {
 		
 		newButton.click();
@@ -107,7 +159,7 @@ public class CreateAccountPage extends BasePage{
 		}
 	}
 		
-	public void editNewAccount(WebDriver driver) throws IOException {
+	public void createNewAccount(WebDriver driver) throws IOException {
 		accountName.sendKeys(DataUtils.readLoginTestData("accountName"));
 		String optionValue = "Technology Partner";
 		selectDropDown(driver, type, optionValue);
@@ -115,7 +167,21 @@ public class CreateAccountPage extends BasePage{
 		selectDropDown(driver, customerPriority, optionValue1);
 		saveButton.click();
 	}
-	public void createNewView(WebDriver driver) throws IOException {
+	public boolean isNewAccountDetailsPage(WebDriver driver) throws IOException {
+		boolean isNewAccountDetailsPage= false;
+		String creatingViewerName = DataUtils.readLoginTestData("accountName");
+		String expectedTitle = "Account: "+creatingViewerName+" ~ Salesforce - Developer Edition";
+		String actualTitle = driver.getTitle();
+		if(actualTitle.equals(expectedTitle)) {
+			isNewAccountDetailsPage= true;
+			logger.info("New Account is created");		
+		}else {
+			isNewAccountDetailsPage= false;
+			logger.info("Can not create New account");
+		}
+		return isNewAccountDetailsPage;
+	}
+	public void createNewViewLink(WebDriver driver) throws IOException {
 		
 		createNewViewLink.click();
 		viewName.clear();
@@ -126,7 +192,7 @@ public class CreateAccountPage extends BasePage{
 		saveViewButton.click();		
 		logger.info("New view is saved.");
 		
-	}
+	}		
 	public boolean isAccountsViewPage(WebDriver driver) throws IOException {
 		boolean isAccountsViewPage =false;
 		String extectedTitle = DataUtils.readLoginTestData("accountsViewPage");
@@ -153,8 +219,119 @@ public class CreateAccountPage extends BasePage{
 			isNewViewDisplayed = false;
 			logger.info("Can not displayed View name in Account view  list");
 		}
-		return isNewViewDisplayed;
+		return isNewViewDisplayed;		
+	}
+	
+	public void selectViewNameFromViewDropdown(WebDriver driver) {
+		//selectDropDown(driver, accountViewListSelect, "Alex");
+		Select select = new Select(accountViewListSelect);
+		List<WebElement> options = select.getOptions();
+		int numberOfOptions = options.size();
+		Random randomNum = new Random();
+		int randomIndex = randomNum.nextInt(numberOfOptions);
+		select.selectByIndex(randomIndex);
+	}
+	public void getEdit(WebDriver driver) {
+		editLink.click();
+	}
+	public boolean isEditViewPage(WebDriver driver) throws IOException {
+		boolean isEditViewPage =false;
+		String extectedTitle = DataUtils.readLoginTestData("accountsEditViewPageTitle");
+		System.out.println("Exp "+extectedTitle);
+		String actualTitle = driver.getTitle();
+		System.out.println("act "+actualTitle);
+		if(actualTitle.equals(extectedTitle)) {
+			isEditViewPage = true;	
+			logger.info("Edit view page is displayed.");
+		}else {
+			isEditViewPage = false;
+			logger.info("Can not displayed Edit View.");
+		}
+		return isEditViewPage;		
+	}
+	public String getEditViewName(WebDriver driver) {
+		return viewName.getText();
+	}
+	public void performEditView(WebDriver driver) throws IOException {
+		viewName.clear();
+		viewName.sendKeys(DataUtils.readLoginTestData("newViewName"));
+		BaseTest.selectDropdownOption(driver, filterField, "Account Name");
+		BaseTest.selectDropdownOption(driver, filterOperator, "contains");
+		filterValue1.sendKeys("a");
+		saveViewButton.click();
+	}
+	public boolean verifyEditView(WebDriver driver) throws IOException {
+		boolean verifyEditView=false;
+		String actual = driver.getTitle();
+		String expected = DataUtils.readLoginTestData("accountsViewPage");
+		if(actual.equals(expected)) {
+			String newViewName =DataUtils.readLoginTestData("newViewName");
+			String testViewName =  SelectedViewName.getText();
+			if(newViewName.equals(testViewName)) {
+				verifyEditView=true;
+				logger.info("View page with "+newViewName+" in the drop down is displayed.");
+			}else {
+				verifyEditView=false;
+				logger.info("View page with "+newViewName+" in the drop down can not display.");
+			}			
+		}
+		return verifyEditView;
+	}
+	public void mergeAccountsLink(WebDriver driver) throws IOException {
+		mergeAccountsLink.click();
+		findAccountsInput.sendKeys(DataUtils.readLoginTestData("mergeAccountName"));
+		findAccountsButton.click();
+		List<WebElement> checkboxes = driver.findElements(By.xpath("//tbody//input[@type='checkbox']"));
+		if(checkboxes.size() >= 2) {
+			checkboxes.get(0).click();
+			checkboxes.get(1).click();
+			logger.info("Two checkboxes are selected.");
+		}else {
+			logger.info("Less than  two checkboxes found.");
+		}
+		nextButton.click();
 		
+	}
+	public boolean isMergeStep2(WebDriver driver) throws IOException {
+		boolean isMergeStep2=false;
+		String actual = mergeStepTwo.getText();
+		String expected = DataUtils.readLoginTestData("mergeAccountsStep2");
+		if(actual.equals(expected)) {
+			isMergeStep2=true;
+			logger.info("Merge Account Step 2");
+		}else {
+			isMergeStep2=false;
+			logger.info("Can not load Merge Account Step 2");
+		}
+		return isMergeStep2;
+	}
+	public void merge(WebDriver driver) {
+		mergeButton.click();
+		Alert alert =driver.switchTo().alert();
+		alert.accept();
+	}
+	public boolean recentView(WebDriver driver) throws IOException {
+		boolean isRecentAccountInView = false;
+		BaseTest.selectDropdownOption(driver, displaySelection, "Recently Viewed");
+		 WebElement table = driver.findElement(By.xpath("//*[@id='bodyCell']/div[3]/div[1]/div/div[2]/table"));
+
+		// Locate the first row in the tbody
+         WebElement firstRow = driver.findElement(By.xpath("//tbody/tr[contains(@class, 'dataRow')][1]"));
+
+         // Locate the <th> element in the first row
+         WebElement firstCell = firstRow.findElement(By.xpath(".//th"));
+
+         // Retrieve the text of the <th> element
+         String firstCellText = firstCell.getText();
+         String expected = DataUtils.readLoginTestData("mergeAccountName");
+        if(firstCellText.contains(expected)) {
+        	 isRecentAccountInView = true;
+        	logger.info("In recently viewed view, new merged account is listed.");
+        }else {
+        	 isRecentAccountInView = false;
+        	logger.info("new merged account is not listed.");
+        }
+		return isRecentAccountInView;
 	}
 	
 }

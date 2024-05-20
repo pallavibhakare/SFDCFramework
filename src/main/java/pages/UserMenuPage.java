@@ -353,7 +353,7 @@ public class UserMenuPage extends BasePage{
 	public boolean selectCustomAppOption(WebDriver driver, String option) {
 		boolean isOptionSelected = false;
 		logger.debug("Selecting custom App: '" +option+ "' option.");
-		WebElement customAppOption = driver.findElement(By.xpath("//a[text()='"+ option+"']"));
+		driver.findElement(By.xpath("//a[text()='"+ option+"']"));
 		logger.debug(option+ " is selcted");		
 		return isOptionSelected;
 	}

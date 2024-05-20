@@ -3,15 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="tests.UserMenuTest">
+      <class name="tests.CreateAccountTest">
         <methods>
+          <include name="mergeAccounts_TC13"/>
           <include name="preCondition"/>
-          <include name="selectUserMenuOptionLogout_TC09"/>
           <include name="tearDownConfiguration"/>
           <include name="postCondition"/>
           <include name="doConfiguration"/>
         </methods>
-      </class> <!-- tests.UserMenuTest -->
+      </class> <!-- tests.CreateAccountTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

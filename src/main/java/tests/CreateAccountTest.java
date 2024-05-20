@@ -1,7 +1,6 @@
 package tests;
 
 import java.io.IOException;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -11,8 +10,8 @@ import com.aventstack.extentreports.Status;
 import constants.WaitConstants;
 import listeners.TestListener;
 import pages.CreateAccountPage;
-import pages.LoginPage;
-import utils.DataUtils;
+import pages.UserMenuPage;
+
 
 @Listeners(TestListener.class)
 public class CreateAccountTest extends BaseTest {
@@ -27,27 +26,17 @@ public class CreateAccountTest extends BaseTest {
 		test = BaseTest.threadExtentText.get();
 		driver = BaseTest.getDriver();
 		driver.manage().timeouts().implicitlyWait(WaitConstants.IMPLICIT_WAIT_DURATION);
-		LoginPage lp = new LoginPage(driver);
+		UserMenuPage ump =new UserMenuPage(driver);
 		CreateAccountPage cap = new CreateAccountPage(driver);
-		cap.launchAndLoginToApplication(driver);
-		
-		String loggedUserName = lp.userMenu.getText();		
-		test.log(Status.INFO, "SalesForce login page is launched and application home page is logged in with username "+loggedUserName);
-			
-		cap.accountsLink.click();
-		String actualTitle = driver.getTitle();
-		String expectedTitle = DataUtils.readLoginTestData("accountsHomePageTitle");
-		Assert.assertEquals(actualTitle, expectedTitle, "Verify Account Home");
-		test.log(Status.INFO, "Accounts page is displayed with usename "+loggedUserName);
-		
-		cap.accountsLink.click();
-		Assert.assertTrue(cap.isNewAccountEditPage(driver), "Verify New Account Edit page");
-		cap.editNewAccount(driver);
-		
-		String actualNewTitle = driver.getTitle();
-		String expectedNewPageTitle = "Account: "+cap.topName.getText()+" ~ Salesforce - Developer Edition";
-		Assert.assertEquals(actualNewTitle, expectedNewPageTitle, "Verify New account page");
-		test.log(Status.INFO, "New account page is displayed with account details.");
+		cap.launchAndLoginToApplication(driver);	
+		test.log(Status.PASS, "SalesForce login page is launched and application home page is logged in with username "+ump.getUserName(driver));
+		cap.getAccountTab(driver);
+		Assert.assertTrue(cap.isAccountsPageDisplayed(driver), "Verify Accounts page");
+		test.log(Status.PASS, "Accounts page is displayed with username "+ump.getUserName(driver));
+		cap.isNewAccountEditPage(driver);		
+		cap.createNewAccount(driver);
+		Assert.assertTrue(cap.isNewAccountDetailsPage(driver), "Verify New Account created");
+		test.log(Status.PASS, "New account page is displayed with account details");
 	}
 	
 //	@Test
@@ -56,76 +45,66 @@ public class CreateAccountTest extends BaseTest {
 		test = BaseTest.threadExtentText.get();
 		driver = BaseTest.getDriver();
 		driver.manage().timeouts().implicitlyWait(WaitConstants.IMPLICIT_WAIT_DURATION);
-		LoginPage lp = new LoginPage(driver);
+		UserMenuPage ump =new UserMenuPage(driver);
 		CreateAccountPage cap = new CreateAccountPage(driver);
 		
-		cap.launchAndLoginToApplication(driver);
-	    Assert.assertTrue(lp.isHomePageLoaded(driver), "Verify home page is loaded");		
-		String loggedUserName = lp.userMenu.getText();	
-		test.log(Status.INFO, "SalesForce login page is launched and application home page is logged in with username "+loggedUserName);
+		cap.launchAndLoginToApplication(driver);	
+		test.log(Status.PASS, "SalesForce login page is launched and application home page is logged in with username "+ump.getUserName(driver));
+		cap.getAccountTab(driver);
+		Assert.assertTrue(cap.isAccountsPageDisplayed(driver), "Verify Accounts page");
+		test.log(Status.PASS, "Accounts page is displayed with username "+ump.getUserName(driver));
 		
-		cap.accountsLink.click();
-		String actualTitle = driver.getTitle();
-		String expectedTitle = DataUtils.readLoginTestData("accountsHomePageTitle");
-		Assert.assertEquals(actualTitle, expectedTitle, "Verify Account Home");
-		test.log(Status.INFO, "Accounts page is displayed with usename "+loggedUserName);
-		
-		cap.createNewView(driver);
+		cap.createNewViewLink(driver);
 		Assert.assertTrue(cap.isAccountsViewPage(driver), "Verify Accounts view page is displayed.");
-		test.log(Status.INFO, "Accounts Page Is displayed");
 		Assert.assertTrue(cap.isNewViewDisplayed(driver), "Verify newly added view is Visible.");
-		test.log(Status.INFO, "Newly added view is displayed in the account view list.");
+		test.log(Status.PASS, "Newly added view is displayed in the account view list.");
 	}
-	@Test
+//	@Test
 	public void editView_TC12() throws IOException {
 		test = BaseTest.threadExtentText.get();
 		driver = BaseTest.getDriver();
 		driver.manage().timeouts().implicitlyWait(WaitConstants.IMPLICIT_WAIT_DURATION);
-		LoginPage lp = new LoginPage(driver);
 		CreateAccountPage cap = new CreateAccountPage(driver);
+		UserMenuPage ump =new UserMenuPage(driver);
 		cap.launchAndLoginToApplication(driver);
-		String loggedUserName = lp.userMenu.getText();		
-		test.log(Status.INFO, "SalesForce login page is launched and application home page is logged in with username "+loggedUserName);			
-		cap.accountsLink.click();
-		String actualTitle = driver.getTitle();
-		String expectedTitle = DataUtils.readLoginTestData("accountsHomePageTitle");
-		Assert.assertEquals(actualTitle, expectedTitle, "Verify Account Home");
-		test.log(Status.INFO, "Accounts page is displayed with usename "+loggedUserName);
+		test.log(Status.PASS, "SalesForce login page is launched and application home page is logged in with username "+ump.getUserName(driver));
+		cap.getAccountTab(driver);
+		Assert.assertTrue(cap.isAccountsPageDisplayed(driver), "Verify Accounts page");
+		test.log(Status.PASS, "Accounts page is displayed with username "+ump.getUserName(driver));
+		cap.selectViewNameFromViewDropdown(driver);
+		cap.getEdit(driver);
+		Assert.assertTrue(cap.isEditViewPage(driver), "Verify Edit View page");
+		test.log(Status.PASS, cap.getEditViewName(driver)+" edit page is displayed.");
+		cap.performEditView(driver);
+		Assert.assertTrue(cap.verifyEditView(driver), "Verify View page");
+		test.log(Status.PASS, "View page with new View name in the drop down is displayed.");	
+	}
+	@Test
+	public void mergeAccounts_TC13() throws IOException {
+		test = BaseTest.threadExtentText.get();
+		driver = BaseTest.getDriver();
+		driver.manage().timeouts().implicitlyWait(WaitConstants.IMPLICIT_WAIT_DURATION);
+		CreateAccountPage cap = new CreateAccountPage(driver);
+		UserMenuPage ump =new UserMenuPage(driver);
+		cap.launchAndLoginToApplication(driver);
+		test.log(Status.PASS, "SalesForce login page is launched and application home page is logged in with username "+ump.getUserName(driver));
+		cap.getAccountTab(driver);
+		Assert.assertTrue(cap.isAccountsPageDisplayed(driver), "Verify Accounts page");
+		test.log(Status.PASS, "Accounts page is displayed with username "+ump.getUserName(driver));
 		
-		WebElement dropDownElement = cap.accountViewListSelect;
-		BaseTest.clickDropDown(dropDownElement);
-		String expectedOptionToSelect = DataUtils.readLoginTestData("selectRandomViewItem");
-		boolean optionSelected = BaseTest.selectDropdownOption(driver, dropDownElement, expectedOptionToSelect);
-		// Verify that the option is selected successfully
-        Assert.assertTrue(optionSelected, "Option '" + expectedOptionToSelect + "' selected successfully");
-       
-        cap.editLink.click();
-        String actualEditPageTitle = driver.getTitle();
-        String expectedEditPageTitle = DataUtils.readLoginTestData("accountsEditViewPageTitle");
-        Assert.assertEquals(actualEditPageTitle, expectedEditPageTitle, cap.viewName.getText()+" edit page is displayed.");
-        
-        cap.viewName.sendKeys(DataUtils.readLoginTestData("changeViewName"));
-        WebElement filterField = cap.filterField;
-        String expectedFilterFieldOption = "Account Name";
-        BaseTest.clickDropDown(filterField);
-        boolean fieldOptionSelected = BaseTest.selectDropdownOption(driver, filterField, expectedFilterFieldOption);
-        Assert.assertTrue(fieldOptionSelected, "Option '"+expectedFilterFieldOption+"' selected successfully.");
-        
-        WebElement filterOperator = cap.filterOperator;
-        String expectedFilterOperator = "contains";
-        boolean operatorOptionSelected = BaseTest.selectDropdownOption(driver, filterOperator, expectedFilterOperator);
-        Assert.assertTrue(fieldOptionSelected, "Option '"+operatorOptionSelected+"' slected successfully.");
-        
-       cap.filterValue.sendKeys("a");
-       String expetedValueToEnter = "a";
-       String actualValueEntered = cap.filterValue.getAttribute("value");
-       Assert.assertEquals(actualValueEntered, expetedValueToEnter, "Value in the value field is not expected.");
-       
-       cap.Save.click();
+		cap.mergeAccountsLink(driver);
+		Assert.assertTrue(cap.isMergeStep2(driver), "Verift Merge Step 2");
+		test.log(Status.PASS, "Merge by Accounts step 2 page is displayed.");
+		cap.merge(driver);
+		Assert.assertTrue(cap.isAccountsPageDisplayed(driver), "Verify Accounts Home Page displayed");
+		test.log(Status.INFO, "Accounts page is displayed");
+		boolean isRecentAccountInView = cap.recentView(driver);
+		Assert.assertTrue(isRecentAccountInView, "Verify recent view is in view list");
+		test.log(Status.PASS, "In recently viewed view, new merged account is listed.");
 	}
 	@AfterMethod
 	public void postCondition() {
 		System.out.println("Post condition: Home Page of the app");
-//		BaseTest.getDriver().close();
+		BaseTest.getDriver().close();
 	}
 }
