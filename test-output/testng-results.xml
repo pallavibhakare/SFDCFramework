@@ -2,28 +2,28 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2024-05-19T23:41:24 PDT" name="Default suite" finished-at="2024-05-19T23:41:38 PDT" duration-ms="13813">
+  <suite started-at="2024-05-21T21:06:06 PDT" name="Default suite" finished-at="2024-05-21T21:06:19 PDT" duration-ms="12824">
     <groups>
     </groups>
-    <test started-at="2024-05-19T23:41:24 PDT" name="Default test" finished-at="2024-05-19T23:41:38 PDT" duration-ms="13813">
+    <test started-at="2024-05-21T21:06:06 PDT" name="Default test" finished-at="2024-05-21T21:06:19 PDT" duration-ms="12824">
       <class name="tests.CreateAccountTest">
-        <test-method is-config="true" signature="doConfiguration()[pri:0, instance:tests.CreateAccountTest@2b58f754]" started-at="2024-05-19T23:41:24 PDT" name="doConfiguration" finished-at="2024-05-19T23:41:24 PDT" duration-ms="212" status="PASS">
+        <test-method is-config="true" signature="doConfiguration()[pri:0, instance:tests.CreateAccountTest@5f3b9c57]" started-at="2024-05-21T21:06:06 PDT" name="doConfiguration" finished-at="2024-05-21T21:06:06 PDT" duration-ms="225" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- doConfiguration -->
-        <test-method is-config="true" signature="preCondition()[pri:0, instance:tests.CreateAccountTest@2b58f754]" started-at="2024-05-19T23:41:24 PDT" name="preCondition" finished-at="2024-05-19T23:41:28 PDT" duration-ms="3689" status="PASS">
+        <test-method is-config="true" signature="preCondition()[pri:0, instance:tests.CreateAccountTest@5f3b9c57]" started-at="2024-05-21T21:06:06 PDT" name="preCondition" finished-at="2024-05-21T21:06:08 PDT" duration-ms="1825" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- preCondition -->
-        <test-method signature="mergeAccounts_TC13()[pri:0, instance:tests.CreateAccountTest@2b58f754]" started-at="2024-05-19T23:41:28 PDT" name="mergeAccounts_TC13" finished-at="2024-05-19T23:41:38 PDT" duration-ms="10085" status="PASS">
+        <test-method signature="createAccountReport_TC14()[pri:0, instance:tests.CreateAccountTest@5f3b9c57]" started-at="2024-05-21T21:06:08 PDT" name="createAccountReport_TC14" finished-at="2024-05-21T21:06:19 PDT" duration-ms="10958" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- mergeAccounts_TC13 -->
-        <test-method is-config="true" signature="postCondition()[pri:0, instance:tests.CreateAccountTest@2b58f754]" started-at="2024-05-19T23:41:38 PDT" name="postCondition" finished-at="2024-05-19T23:41:38 PDT" duration-ms="0" status="PASS">
+        </test-method> <!-- createAccountReport_TC14 -->
+        <test-method is-config="true" signature="postCondition()[pri:0, instance:tests.CreateAccountTest@5f3b9c57]" started-at="2024-05-21T21:06:19 PDT" name="postCondition" finished-at="2024-05-21T21:06:19 PDT" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- postCondition -->
-        <test-method is-config="true" signature="tearDownConfiguration()[pri:0, instance:tests.CreateAccountTest@2b58f754]" started-at="2024-05-19T23:41:38 PDT" name="tearDownConfiguration" finished-at="2024-05-19T23:41:38 PDT" duration-ms="323" status="PASS">
+        <test-method is-config="true" signature="tearDownConfiguration()[pri:0, instance:tests.CreateAccountTest@5f3b9c57]" started-at="2024-05-21T21:06:19 PDT" name="tearDownConfiguration" finished-at="2024-05-21T21:06:19 PDT" duration-ms="324" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownConfiguration -->

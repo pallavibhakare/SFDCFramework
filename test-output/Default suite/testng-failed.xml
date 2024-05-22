@@ -5,11 +5,11 @@
     <classes>
       <class name="tests.CreateAccountTest">
         <methods>
-          <include name="mergeAccounts_TC13"/>
           <include name="preCondition"/>
+          <include name="createAccountReport"/>
           <include name="tearDownConfiguration"/>
-          <include name="postCondition"/>
           <include name="doConfiguration"/>
+          <include name="postCondition"/>
         </methods>
       </class> <!-- tests.CreateAccountTest -->
     </classes>

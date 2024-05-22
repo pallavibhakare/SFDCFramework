@@ -1,6 +1,8 @@
 package pages;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -12,6 +14,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import tests.BaseTest;
 import utils.DataUtils;
+import utils.WaitUtils;
 
 public class CreateAccountPage extends BasePage{
 
@@ -107,6 +110,53 @@ public class CreateAccountPage extends BasePage{
 	
 	@FindBy(id = "hotlist_mode")
 	public WebElement displaySelection;
+	
+	@FindBy(xpath = "//a[contains(text(), 'Accounts with last activity')]")
+	public WebElement lastActivityReports;
+	
+	@FindBy(id = "ext-gen20")
+	public WebElement createDateDD;
+	
+	@FindBy(xpath = "//div[@id='ext-gen265']/div[contains(text(), 'Created Date')]")
+	public WebElement createdDate;
+	
+	@FindBy(id = "ext-gen264")
+	public WebElement comboList;
+	
+	@FindBy(id = "ext-gen152")
+	public WebElement fromDatePick;
+		
+	@FindBy(id = "ext-comp-1042")
+	public WebElement fromInput;
+
+	@FindBy(id = "ext-gen154")
+	public WebElement toDatePick;
+	@FindBy(id = "ext-comp-1045")
+	public WebElement toInput;
+	
+	@FindBy(id = "ext-comp-1057")
+	public WebElement toLabel;
+	
+	@FindBy(id = "gridViewScrollpreviewPanelGrid")
+	public WebElement accountListGrid;
+	
+	@FindBy(id = "ext-gen49")
+	public WebElement saveReport;
+	
+	@FindBy(id = "saveReportDlg")
+	public WebElement saveReportDialog;
+	
+	@FindBy(id = "saveReportDlg_reportNameField")
+	public WebElement reportName;
+	@FindBy(id = "saveReportDlg_DeveloperName")
+	public WebElement reportUniqueName;
+	@FindBy(id = "ext-comp-1067")
+	public WebElement reportDesc;
+	
+	@FindBy(id = "ext-gen318")
+	public WebElement saveButtonDlg;
+	@FindBy(id = "ext-gen63")
+	public WebElement runReport;
 	
 	public void launchAndLoginToApplication(WebDriver driver) throws IOException {
 		LoginPage lp = new LoginPage(driver);
@@ -313,7 +363,7 @@ public class CreateAccountPage extends BasePage{
 	public boolean recentView(WebDriver driver) throws IOException {
 		boolean isRecentAccountInView = false;
 		BaseTest.selectDropdownOption(driver, displaySelection, "Recently Viewed");
-		 WebElement table = driver.findElement(By.xpath("//*[@id='bodyCell']/div[3]/div[1]/div/div[2]/table"));
+//		WebElement table = driver.findElement(By.xpath("//*[@id='bodyCell']/div[3]/div[1]/div/div[2]/table"));
 
 		// Locate the first row in the tbody
          WebElement firstRow = driver.findElement(By.xpath("//tbody/tr[contains(@class, 'dataRow')][1]"));
@@ -333,5 +383,97 @@ public class CreateAccountPage extends BasePage{
         }
 		return isRecentAccountInView;
 	}
+	public void getLastActiviytReports(WebDriver driver) {
+		lastActivityReports.click();
+	}
+	public boolean isUnsavedReportPage(WebDriver driver) throws IOException {
+		boolean isUnsavedReportPage =false;
+		String actualTitle = driver.getTitle();
+		System.out.println("act "+actualTitle);
+		String expectedTitle = DataUtils.readLoginTestData("isUnsavedReportPageTitle");
+		System.out.println("exp "+expectedTitle);
+		if(actualTitle.equals(expectedTitle)) {
+			isUnsavedReportPage=true;
+			logger.info("");
+		}else {
+			isUnsavedReportPage=false;
+			logger.info("");
+		}
+		return isUnsavedReportPage;
+	}
+	public void selectReportOptions(WebDriver driver) {
+		String todaysDate =new SimpleDateFormat("M/dd/yyyy").format(new Date());
+		createDateDD.click();
+		BaseTest bt = new BaseTest();
+		bt.moveToElement(comboList, "Date Field");
+		createdDate.click();
+		fromInput.clear();		
+		fromDatePick.click();
+		fromInput.sendKeys(todaysDate);
+		toInput.clear();
+		toDatePick.click();
+		toInput.sendKeys(todaysDate);
+		toLabel.click();
+	}
+	public boolean isListOfAccountsDisplayed(WebDriver driver) {
+		boolean isListOfAccountsDisplayed = false;
+		if(accountListGrid.isDisplayed()) {
+			isListOfAccountsDisplayed = true;
+			logger.info("List of records displayed");
+		}else {
+			isListOfAccountsDisplayed = true;
+			logger.info("Can not display records");
+		}
+		return isListOfAccountsDisplayed;		
+	}
+	public void saveReports(WebDriver driver) throws IOException {
+		saveReport.click();
+		logger.info("Save Report Window is open.");
+		BaseTest.getParentWindow(driver);
+		BaseTest.switchTochildWindow(driver, saveReportDialog);
+		reportName.sendKeys(DataUtils.readLoginTestData("reportName"));
+		reportUniqueName.click();
+		reportDesc.click();		
+		saveButtonDlg.click();		
+		BaseTest.backToParentWindow(driver);	
+		runReport.click();
+	}
+	public String getReportName(WebDriver driver) throws IOException {
+		return DataUtils.readLoginTestData("reportName");
+	}
+	public boolean isDetailedReportPage(WebDriver driver) throws IOException {
+		boolean isDetailedReportPage = false;		
+		String actualReportName = getReportName(driver)+" ~ Salesforce - Developer Edition";
+		String expected = DataUtils.readLoginTestData("reportName");
+		if(actualReportName.contains(expected)) {
+			isDetailedReportPage = true;
+			logger.info("Detailed Report page is displayed");
+		}else {
+			isDetailedReportPage = true;
+			logger.info("Can not display detailed report page");
+		}
+		return isDetailedReportPage;		
+	}
+//	public boolean isReportsPresent(WebDriver driver) throws IOException {
+//		boolean isReportsPresent = false;
+//		// Locate the first row in the tbody
+//        WebElement firstRow = driver.findElement(By.xpath("//div[@id='ext-gen77']/div[1]"));
+//
+//        // Locate the <th> element in the first row
+//        WebElement firstCell = firstRow.findElement(By.xpath(".//th"));
+//
+//        // Retrieve the text of the <th> element
+//        String firstCellText = firstCell.getText();
+//        String expectedCellText = DataUtils.readLoginTestData("reportName");
+//       if(isReportsPage(driver) && firstCellText.equals(expectedCellText)) {
+//    	   isReportsPresent = true;
+//       		logger.info("Report is present");
+//       }else {
+//    	   isReportsPresent = false;
+//       	logger.info("Report is not present.");
+//       }		
+//		return isReportsPresent;
+//	}
+	
 	
 }

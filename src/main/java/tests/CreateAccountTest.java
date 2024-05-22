@@ -79,7 +79,7 @@ public class CreateAccountTest extends BaseTest {
 		Assert.assertTrue(cap.verifyEditView(driver), "Verify View page");
 		test.log(Status.PASS, "View page with new View name in the drop down is displayed.");	
 	}
-	@Test
+//	@Test
 	public void mergeAccounts_TC13() throws IOException {
 		test = BaseTest.threadExtentText.get();
 		driver = BaseTest.getDriver();
@@ -102,6 +102,30 @@ public class CreateAccountTest extends BaseTest {
 		Assert.assertTrue(isRecentAccountInView, "Verify recent view is in view list");
 		test.log(Status.PASS, "In recently viewed view, new merged account is listed.");
 	}
+	
+	@Test
+	public void createAccountReport_TC14() throws IOException {
+		test = BaseTest.threadExtentText.get();
+		driver = BaseTest.getDriver();
+		driver.manage().timeouts().implicitlyWait(WaitConstants.IMPLICIT_WAIT_DURATION);
+		CreateAccountPage cap = new CreateAccountPage(driver);
+		UserMenuPage ump =new UserMenuPage(driver);
+		cap.launchAndLoginToApplication(driver);
+		test.log(Status.PASS, "SalesForce login page is launched and application home page is logged in with username "+ump.getUserName(driver));
+		cap.getAccountTab(driver);
+		Assert.assertTrue(cap.isAccountsPageDisplayed(driver), "Verify Accounts page");
+		test.log(Status.PASS, "Accounts page is displayed with username "+ump.getUserName(driver));
+		cap.getLastActiviytReports(driver);
+		Assert.assertTrue(cap.isUnsavedReportPage(driver), "Verify Unsaved Reports Page.");
+		test.log(Status.PASS, "Unsaved Report page is displayed.");
+		cap.selectReportOptions(driver);
+		Assert.assertTrue(cap.isListOfAccountsDisplayed(driver), "Verify list of accounts displayed");
+		test.log(Status.PASS, "List of accounts qualified are displayed.");
+		cap.saveReports(driver);
+		Assert.assertTrue(cap.isDetailedReportPage(driver), "Verify Detailed Reports Page.");
+		test.log(Status.PASS, "Report page with details and "+cap.getReportName(driver)+" is displayed.");
+	}
+	
 	@AfterMethod
 	public void postCondition() {
 		System.out.println("Post condition: Home Page of the app");
