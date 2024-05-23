@@ -1,7 +1,6 @@
 package tests;
 
 import java.io.IOException;
-import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -11,7 +10,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
@@ -114,15 +112,6 @@ public class BaseTest {
         System.out.println("Browser closed");
     }
 
-    public void enterText(WebElement ele, String data, String objName) {
-        if (ele.isDisplayed()) {
-            ele.clear();
-            ele.sendKeys(data);
-            System.out.println("Data is entered in the " + objName);
-        } else {
-            System.out.println(objName + " element is not displayed");
-        }
-    }
 
     public void clickElement(WebElement ele, String objName) {
         if (ele.isEnabled()) {
@@ -132,23 +121,7 @@ public class BaseTest {
             System.out.println("Button element is not enabled");
         }
     }
-
-    public void moveToElement(WebElement element, String objName) {
-    	Actions actions = new Actions(driver);
-        actions.moveToElement(element).build().perform();
-        System.out.println("Moved to the element: " + objName);
-    }
-
-    public void login(String username, String password) {
-        WebElement userName = driver.findElement(By.xpath("//input[contains(@id, 'username')]"));
-        enterText(userName, username, "Username Field");
-
-        WebElement pwd = driver.findElement(By.xpath("//input[contains(@id, 'password')]"));
-        enterText(pwd, password, "Password Field");
-
-        WebElement loginButton = driver.findElement(By.xpath("//input[contains(@id, 'Login')]"));
-        clickElement(loginButton, "Login Button");
-    }
+    
 	//for clicking dropdown(clickDropDown)  and selecting DD option(selectDropdownOption)
 	public static void clickDropDown(WebElement dropdownElement  ) {
 		if(dropdownElement.isDisplayed()) {
@@ -158,7 +131,8 @@ public class BaseTest {
 		else {
 			logger.info("Dropdown is not displayed.");
 		}
-	}			
+	}	
+	
 	public static boolean selectDropdownOption(WebDriver driver, WebElement dropdownElement, String option) {
 		boolean isOptionVerified = false;
 	    try {
@@ -176,21 +150,5 @@ public class BaseTest {
 	    return isOptionVerified;
 	    
 	}
-	public static String getParentWindow(WebDriver driver) {
-		String parentWindow = driver.getWindowHandle();
-		return parentWindow;
-	}
-	public static void switchTochildWindow(WebDriver driver ,WebElement childWindownId) {
-		Set<String> childWindows = driver.getWindowHandles();
-		String childWindow="";
-		for(String window : childWindows) {
-			childWindow = window;
-			driver.switchTo().window(childWindow);
-		}
-		
-	}	
-	public static void backToParentWindow(WebDriver driver) {
-		driver.switchTo().window(getParentWindow(driver));
-		
-	}
+
 }

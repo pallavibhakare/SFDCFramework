@@ -14,7 +14,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import tests.BaseTest;
 import utils.DataUtils;
-import utils.WaitUtils;
+import utils.WebElementUtils;
 
 public class CreateAccountPage extends BasePage{
 
@@ -173,9 +173,7 @@ public class CreateAccountPage extends BasePage{
 	public boolean isAccountsPageDisplayed(WebDriver driver) throws IOException {
 		boolean isAccountsPageDisplayed = false;
 		String actual = driver.getTitle();
-		System.out.println("act" +actual);
 		String expected = DataUtils.readLoginTestData("accountsHomePageTitle");
-		System.out.println("ex" +expected);
 		if(actual.endsWith(expected)) {
 			isAccountsPageDisplayed= true;
 			logger.info("Accounts Page is displayed");
@@ -363,17 +361,15 @@ public class CreateAccountPage extends BasePage{
 	public boolean recentView(WebDriver driver) throws IOException {
 		boolean isRecentAccountInView = false;
 		BaseTest.selectDropdownOption(driver, displaySelection, "Recently Viewed");
-//		WebElement table = driver.findElement(By.xpath("//*[@id='bodyCell']/div[3]/div[1]/div/div[2]/table"));
-
 		// Locate the first row in the tbody
-         WebElement firstRow = driver.findElement(By.xpath("//tbody/tr[contains(@class, 'dataRow')][1]"));
+        WebElement firstRow = driver.findElement(By.xpath("//tbody/tr[contains(@class, 'dataRow')][1]"));
 
-         // Locate the <th> element in the first row
-         WebElement firstCell = firstRow.findElement(By.xpath(".//th"));
+        // Locate the <th> element in the first row
+        WebElement firstCell = firstRow.findElement(By.xpath(".//th"));
 
-         // Retrieve the text of the <th> element
-         String firstCellText = firstCell.getText();
-         String expected = DataUtils.readLoginTestData("mergeAccountName");
+        // Retrieve the text of the <th> element
+        String firstCellText = firstCell.getText();
+        String expected = DataUtils.readLoginTestData("mergeAccountName");
         if(firstCellText.contains(expected)) {
         	 isRecentAccountInView = true;
         	logger.info("In recently viewed view, new merged account is listed.");
@@ -404,8 +400,7 @@ public class CreateAccountPage extends BasePage{
 	public void selectReportOptions(WebDriver driver) {
 		String todaysDate =new SimpleDateFormat("M/dd/yyyy").format(new Date());
 		createDateDD.click();
-		BaseTest bt = new BaseTest();
-		bt.moveToElement(comboList, "Date Field");
+		WebElementUtils.moveToElement(driver, comboList,"Date Field");
 		createdDate.click();
 		fromInput.clear();		
 		fromDatePick.click();
@@ -429,13 +424,13 @@ public class CreateAccountPage extends BasePage{
 	public void saveReports(WebDriver driver) throws IOException {
 		saveReport.click();
 		logger.info("Save Report Window is open.");
-		BaseTest.getParentWindow(driver);
-		BaseTest.switchTochildWindow(driver, saveReportDialog);
+		WebElementUtils.getParentWindow(driver);
+		WebElementUtils.switchTochildWindow(driver, saveReportDialog);
 		reportName.sendKeys(DataUtils.readLoginTestData("reportName"));
 		reportUniqueName.click();
 		reportDesc.click();		
 		saveButtonDlg.click();		
-		BaseTest.backToParentWindow(driver);	
+		WebElementUtils.backToParentWindow(driver);	
 		runReport.click();
 	}
 	public String getReportName(WebDriver driver) throws IOException {
@@ -454,26 +449,5 @@ public class CreateAccountPage extends BasePage{
 		}
 		return isDetailedReportPage;		
 	}
-//	public boolean isReportsPresent(WebDriver driver) throws IOException {
-//		boolean isReportsPresent = false;
-//		// Locate the first row in the tbody
-//        WebElement firstRow = driver.findElement(By.xpath("//div[@id='ext-gen77']/div[1]"));
-//
-//        // Locate the <th> element in the first row
-//        WebElement firstCell = firstRow.findElement(By.xpath(".//th"));
-//
-//        // Retrieve the text of the <th> element
-//        String firstCellText = firstCell.getText();
-//        String expectedCellText = DataUtils.readLoginTestData("reportName");
-//       if(isReportsPage(driver) && firstCellText.equals(expectedCellText)) {
-//    	   isReportsPresent = true;
-//       		logger.info("Report is present");
-//       }else {
-//    	   isReportsPresent = false;
-//       	logger.info("Report is not present.");
-//       }		
-//		return isReportsPresent;
-//	}
-	
 	
 }

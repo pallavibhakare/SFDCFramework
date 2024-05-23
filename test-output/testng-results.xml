@@ -2,32 +2,32 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2024-05-21T21:06:06 PDT" name="Default suite" finished-at="2024-05-21T21:06:19 PDT" duration-ms="12824">
+  <suite started-at="2024-05-22T22:37:59 PDT" name="Default suite" finished-at="2024-05-22T22:38:10 PDT" duration-ms="11268">
     <groups>
     </groups>
-    <test started-at="2024-05-21T21:06:06 PDT" name="Default test" finished-at="2024-05-21T21:06:19 PDT" duration-ms="12824">
-      <class name="tests.CreateAccountTest">
-        <test-method is-config="true" signature="doConfiguration()[pri:0, instance:tests.CreateAccountTest@5f3b9c57]" started-at="2024-05-21T21:06:06 PDT" name="doConfiguration" finished-at="2024-05-21T21:06:06 PDT" duration-ms="225" status="PASS">
+    <test started-at="2024-05-22T22:37:59 PDT" name="Default test" finished-at="2024-05-22T22:38:10 PDT" duration-ms="11268">
+      <class name="tests.CreateOptyTest">
+        <test-method is-config="true" signature="doConfiguration()[pri:0, instance:tests.CreateOptyTest@5b6813df]" started-at="2024-05-22T22:37:59 PDT" name="doConfiguration" finished-at="2024-05-22T22:37:59 PDT" duration-ms="218" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- doConfiguration -->
-        <test-method is-config="true" signature="preCondition()[pri:0, instance:tests.CreateAccountTest@5f3b9c57]" started-at="2024-05-21T21:06:06 PDT" name="preCondition" finished-at="2024-05-21T21:06:08 PDT" duration-ms="1825" status="PASS">
+        <test-method is-config="true" signature="preCondition()[pri:0, instance:tests.CreateOptyTest@5b6813df]" started-at="2024-05-22T22:37:59 PDT" name="preCondition" finished-at="2024-05-22T22:38:01 PDT" duration-ms="2271" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- preCondition -->
-        <test-method signature="createAccountReport_TC14()[pri:0, instance:tests.CreateAccountTest@5f3b9c57]" started-at="2024-05-21T21:06:08 PDT" name="createAccountReport_TC14" finished-at="2024-05-21T21:06:19 PDT" duration-ms="10958" status="PASS">
+        <test-method signature="testQuarterlySummaryReport_TC19()[pri:0, instance:tests.CreateOptyTest@5b6813df]" started-at="2024-05-22T22:38:01 PDT" name="testQuarterlySummaryReport_TC19" finished-at="2024-05-22T22:38:10 PDT" duration-ms="8949" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- createAccountReport_TC14 -->
-        <test-method is-config="true" signature="postCondition()[pri:0, instance:tests.CreateAccountTest@5f3b9c57]" started-at="2024-05-21T21:06:19 PDT" name="postCondition" finished-at="2024-05-21T21:06:19 PDT" duration-ms="0" status="PASS">
+        </test-method> <!-- testQuarterlySummaryReport_TC19 -->
+        <test-method is-config="true" signature="postCondition()[pri:0, instance:tests.CreateOptyTest@5b6813df]" started-at="2024-05-22T22:38:10 PDT" name="postCondition" finished-at="2024-05-22T22:38:10 PDT" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- postCondition -->
-        <test-method is-config="true" signature="tearDownConfiguration()[pri:0, instance:tests.CreateAccountTest@5f3b9c57]" started-at="2024-05-21T21:06:19 PDT" name="tearDownConfiguration" finished-at="2024-05-21T21:06:19 PDT" duration-ms="324" status="PASS">
+        <test-method is-config="true" signature="tearDownConfiguration()[pri:0, instance:tests.CreateOptyTest@5b6813df]" started-at="2024-05-22T22:38:10 PDT" name="tearDownConfiguration" finished-at="2024-05-22T22:38:10 PDT" duration-ms="318" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownConfiguration -->
-      </class> <!-- tests.CreateAccountTest -->
+      </class> <!-- tests.CreateOptyTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
