@@ -132,8 +132,7 @@ public class CreateOptyPage extends BasePage{
 			saveBtn.click();
 		}else {
 			logger.info("Can not display New opportunity page");
-		}
-		
+		}		
 	}
 	public void getAccountName(WebDriver driver, WebElement ele) {
 		ele.click();
@@ -205,9 +204,7 @@ public class CreateOptyPage extends BasePage{
 	public boolean isQuarterlySummaryReportPage(WebDriver driver) throws IOException {
 		boolean isQuarterlySummaryReportPage = false;
 		String actualTitle = driver.getTitle();
-		System.out.println("Act"+actualTitle);
 		String expectedTitle = DataUtils.readLoginTestData("isQuarterlySummaryReportPage");
-		System.out.println("XEct"+expectedTitle);
 		if(actualTitle.equals(expectedTitle)) {
 			isQuarterlySummaryReportPage=true;
 			logger.info("Opportunity Report page is displayed");

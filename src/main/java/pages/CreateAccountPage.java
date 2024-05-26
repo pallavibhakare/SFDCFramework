@@ -257,9 +257,7 @@ public class CreateAccountPage extends BasePage{
 	public boolean isNewViewDisplayed(WebDriver driver) throws IOException {
 		boolean isNewViewDisplayed =false;
 		String extectedViewName = DataUtils.readLoginTestData("viewName");
-		System.out.println("expected "+extectedViewName);
 		String actualViewName = newlyAccountViewInList.getText();
-		System.out.println("actualViewName "+actualViewName);
 		if(actualViewName.equals(extectedViewName)) {
 			isNewViewDisplayed = true;	
 			logger.info("View name is displayed in the account view list.");
@@ -285,9 +283,7 @@ public class CreateAccountPage extends BasePage{
 	public boolean isEditViewPage(WebDriver driver) throws IOException {
 		boolean isEditViewPage =false;
 		String extectedTitle = DataUtils.readLoginTestData("accountsEditViewPageTitle");
-		System.out.println("Exp "+extectedTitle);
 		String actualTitle = driver.getTitle();
-		System.out.println("act "+actualTitle);
 		if(actualTitle.equals(extectedTitle)) {
 			isEditViewPage = true;	
 			logger.info("Edit view page is displayed.");
@@ -385,9 +381,7 @@ public class CreateAccountPage extends BasePage{
 	public boolean isUnsavedReportPage(WebDriver driver) throws IOException {
 		boolean isUnsavedReportPage =false;
 		String actualTitle = driver.getTitle();
-		System.out.println("act "+actualTitle);
 		String expectedTitle = DataUtils.readLoginTestData("isUnsavedReportPageTitle");
-		System.out.println("exp "+expectedTitle);
 		if(actualTitle.equals(expectedTitle)) {
 			isUnsavedReportPage=true;
 			logger.info("");

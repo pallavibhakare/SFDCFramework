@@ -578,9 +578,7 @@ public class UserMenuPage extends BasePage{
 	public boolean isDevConsoleOpen(WebDriver driver) throws IOException {
 		boolean isDevConsoleOpen=false;
 		String actualConsoleTitle = driver.getTitle();
-		System.out.println("act "+actualConsoleTitle);
 		String expectedDevConsoleTitle = DataUtils.readLoginTestData("developerConsolePageTitle");
-		System.out.println("exp "+expectedDevConsoleTitle);
 		if(actualConsoleTitle.equals(expectedDevConsoleTitle)) {
 			isDevConsoleOpen=true;
 			logger.info("Develoer Console is open");

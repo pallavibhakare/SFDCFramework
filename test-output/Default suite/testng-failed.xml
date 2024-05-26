@@ -3,15 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="tests.CreateOptyTest">
+      <class name="tests.ContactsTest">
         <methods>
           <include name="postCondition"/>
-          <include name="preCondition"/>
+          <include name="viewAContact_TC29"/>
           <include name="tearDownConfiguration"/>
-          <include name="testStuckOpportunitiesReport_TC18"/>
+          <include name="preCondition"/>
           <include name="doConfiguration"/>
         </methods>
-      </class> <!-- tests.CreateOptyTest -->
+      </class> <!-- tests.ContactsTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

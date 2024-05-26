@@ -58,7 +58,7 @@ public class LoginTest extends BaseTest {
 	 
 	}
 	
-//	@Test(description = "Login to SalesForce -2 ")
+	@Test(description = "Login to SalesForce -2 ")
 	public void loginToSalesForce_TC02() throws IOException {				
 		test = BaseTest.threadExtentText.get();
 		
@@ -134,7 +134,7 @@ public class LoginTest extends BaseTest {
 	}
 	
 	
-	@Test(description = "Forget Password - 4B")
+//	@Test(description = "Forget Password - 4B")
 	public void forgetPassword_TC04_B() throws IOException {
 		test = BaseTest.threadExtentText.get();
 		driver = BaseTest.getDriver();
@@ -161,7 +161,7 @@ public class LoginTest extends BaseTest {
 	@AfterMethod
 	public void postCondition() {
 		System.out.println("Post condition: Home Page of the app");
-		//BaseTest.getDriver().close();
+		BaseTest.getDriver().close();
 	}
 	
 	

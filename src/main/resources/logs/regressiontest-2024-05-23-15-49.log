@@ -1,0 +1,12 @@
+2024-05-23-15:49:45 INFO  Salesforce login page is launched and application
+2024-05-23-15:49:45 INFO  Signing in to application
+2024-05-23-15:49:50 INFO  Should be Signing in to application
+2024-05-23-15:49:50 INFO  Home page is displayed.
+2024-05-23-15:49:51 INFO  Leads Home Page is displayed.
+2024-05-23-15:49:52 INFO  Today's Leads is selected from Leads View
+2024-05-23-15:49:53 INFO  My Unread Leads is selected from Leads View
+2024-05-23-15:49:53 INFO  Usermenu is clicked
+2024-05-23-15:49:53 INFO  Clicked Logout.
+2024-05-23-15:51:15 INFO  Signing in to application
+2024-05-23-15:51:16 INFO  Should be Signing in to application
+2024-05-23-15:51:17 INFO  Can not load Leads Home Page.

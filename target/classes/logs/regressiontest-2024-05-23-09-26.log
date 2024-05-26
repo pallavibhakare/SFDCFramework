@@ -1,0 +1,11 @@
+2024-05-23-09:26:44 INFO  LoginPage: enterUsername : Started
+2024-05-23-09:26:44 INFO  Entered wrong Username 123
+2024-05-23-09:26:44 INFO  LoginPage: Checking if username value is entered in username field
+2024-05-23-09:26:45 INFO  LoginPage: enterWrongPassword : Started
+2024-05-23-09:26:45 INFO  Entered wrong Password
+2024-05-23-09:26:45 INFO  LoginPage: clickLoginButton : Started
+2024-05-23-09:26:48 INFO  LoginPage: enterUsername : Started
+2024-05-23-09:26:49 INFO  Entered username: pallavi@qa.com
+2024-05-23-09:26:49 INFO  LoginPage: enterPassword : Started
+2024-05-23-09:26:50 INFO  Entered password
+2024-05-23-09:26:50 INFO  LoginPage: clickLoginButton : Started

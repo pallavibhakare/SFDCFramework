@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import tests.BaseTest;
 import utils.DataUtils;
+import utils.WaitUtils;
 
 
 public class LoginPage extends BasePage{
@@ -91,6 +92,16 @@ public class LoginPage extends BasePage{
 		logger.info("Should be Signing in to application");
 	}
 
+	public void launchAndLoginToApplication(WebDriver driver) throws IOException {
+		LoginPage lp = new LoginPage(driver);
+		BaseTest bt =new BaseTest();
+		bt.goToUrl(driver);		
+		logger.info("Salesforce login page is launched and application");
+		lp.loginToSFDC(driver);		
+		lp.isHomePageLoaded(driver);
+		logger.info("Home page is displayed.");		
+	}
+	
 	public void enterUserName() throws IOException {
 		logger.info("LoginPage: enterUsername : Started");
 		String user = DataUtils.readLoginTestData("username");
@@ -154,7 +165,8 @@ public class LoginPage extends BasePage{
 		userMenu.click();
 		logger.info("Usermenu is clicked");
 		logoutButton.click();
-		logger.info("Clicked Lougout.");		
+		logger.info("Clicked Logout.");		
+		WaitUtils.waitForElementToDisappear(driver, logoutButton);
 	}
 	
 	public boolean isUserSaved(WebDriver driver) throws IOException {
@@ -184,7 +196,8 @@ public class LoginPage extends BasePage{
 	public boolean isLoginPageOpen(WebDriver driver) throws IOException {
 		boolean isLoginPageOpen = false;
 		String actualTitle = driver.getTitle();
-		if(actualTitle.equals(DataUtils.readLoginTestData("loginPageTitle"))) {
+		String expextedTitle = DataUtils.readLoginTestData("loginPageTitle");
+		if(actualTitle.equals(expextedTitle)) {
 			isLoginPageOpen = true;
 		}
 		else {
@@ -223,8 +236,11 @@ public class LoginPage extends BasePage{
 	
 	public boolean isHomePageLoaded(WebDriver driver) throws IOException {
 		boolean isHomePage = false;
-		String actualTitle = driver.getTitle();
+//		WaitUtils.waitForElement(driver, loginButton);
+		String actualTitle = driver.getTitle();		
+		//System.out.println("act: "+actualTitle);
 		String expextedTitle= DataUtils.readLoginTestData("homePageTitle");
+		//System.out.println("exp: "+expextedTitle);
 		if(expextedTitle.equals(actualTitle)) {
 			isHomePage = true;
 		}else {

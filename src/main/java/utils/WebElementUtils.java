@@ -46,6 +46,7 @@ public class WebElementUtils {
         actions.moveToElement(element).build().perform();
         System.out.println("Moved to the element: " + objName);
     }
+    
     public static List<String> getDropdownOptionNames(WebDriver driver, List<WebElement> eleOptions){
     	
 		List<String> optionNames = new ArrayList<>();
@@ -78,12 +79,10 @@ public class WebElementUtils {
 				driver.switchTo().window(windowHandle);
 				break;
 			}
-		}
-		
+		}		
 	}
 	public static void backToParentWindow(WebDriver driver) {
-		driver.switchTo().window(getParentWindow(driver));
-		
+		driver.switchTo().window(getParentWindow(driver));		
 	}
 	public static void selectRandomOptionFromDropdown(WebElement seletElement) {
 		Select dropdown = new Select(seletElement);
@@ -97,6 +96,35 @@ public class WebElementUtils {
 		//first cell within first row
 		WebElement firstCellLink = firstRow.findElement(By.cssSelector("th a"));
 		firstCellLink.click();
+	}	
+	
+	public static void clickDropDown(WebElement dropdownElement  ) {
+		if(dropdownElement.isDisplayed()) {
+			dropdownElement.click();		
+		}		
+	}	
+	
+	public static boolean selectDropdownOption(WebDriver driver, WebElement dropdownElement, String optionText) {
+		boolean isOptionVerified = false;
+		try {
+            Select select = new Select(dropdownElement);
+            List<WebElement> options = select.getOptions();
+            for (WebElement option : options) {
+                if (option.getText().equals(optionText)) {
+                    option.click();
+                    System.out.println("Option '" + optionText + "' selected from dropdown");
+                    isOptionVerified = true;
+                    break;
+                }
+            }
+            if (!isOptionVerified) {
+                System.out.println("Option '" + optionText + "' is not displayed in the dropdown");
+            }
+        } catch (Exception e) {
+            System.out.println("Exception occurred while selecting option '" + optionText + "': " + e.getMessage());
+        }
+        return isOptionVerified;
+	    
 	}
 	
 }

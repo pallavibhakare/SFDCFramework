@@ -1,0 +1,11 @@
+2024-05-24-23:01:05 INFO  Salesforce login page is launched and application
+2024-05-24-23:01:05 INFO  Signing in to application
+2024-05-24-23:01:10 INFO  Should be Signing in to application
+2024-05-24-23:01:10 INFO  Home page is displayed.
+2024-05-24-23:01:11 INFO  Contacts Home page is loaded
+2024-05-24-23:01:12 INFO  Create New View page is loaded.
+2024-05-24-23:01:12 INFO  View Uniuquw Name is created
+2024-05-24-23:01:12 INFO  View Name is entered
+2024-05-24-23:01:12 INFO  View Unique Name is Created
+2024-05-24-23:01:14 INFO  Contacts List page displayed
+2024-05-24-23:01:14 INFO  Contacts Home Page is Open. Created view 'Sammy' is displaed in drop down as default.
