@@ -62,6 +62,9 @@ public class UserMenuPage extends BasePage{
 
 	@FindBy(xpath = "//input[@id='lastName']")
 	public WebElement aboutTabLastName;
+	
+	@FindBy(xpath = "//input[@id='firstName']")
+	public WebElement aboutTabFirstName;
 
 	@FindBy(xpath = "//*[@value='Save All']")
 	public WebElement saveAllButton;
@@ -471,6 +474,81 @@ public class UserMenuPage extends BasePage{
 		return isLastNameChanged;
 	}
 	
+	public boolean isFocusAtFirstNameField(WebDriver driver) throws IOException {
+		
+		boolean isFocusAtFirstNameFields = false;
+		if(aboutTab.isDisplayed()) {
+			aboutTab.click();
+			aboutTabFirstName.click();
+			WebElement activeElement = driver.switchTo().activeElement();
+			if (aboutTabFirstName.equals(activeElement)) {
+				isFocusAtFirstNameFields = true;
+                logger.info("The focus is on the First Name field.");
+            } else {
+            	isFocusAtFirstNameFields = false;
+            	logger.info("The focus is not on the First Name field.");
+            }
+		}
+		return isFocusAtFirstNameFields;
+	}
+	
+	public void changeLastNameAndSaveAll(WebDriver driver) throws IOException {
+		
+		String lastName =DataUtils.readLoginTestData("lastNameAsAbcd");
+		aboutTabLastName.clear();
+		aboutTabLastName.sendKeys(lastName);
+		saveAllButton.click();
+		driver.switchTo().parentFrame();	
+	}
+	public boolean isLastNameUpdatedInUsermenu(WebDriver driver) throws IOException {
+		String lastNameUpdate = DataUtils.readLoginTestData("lastNameAsAbcd");
+		boolean isLastNameUpdated = false;
+		if(userMenu.isDisplayed()) {
+			String userName = getUserName(driver);
+			if(userName.contains(lastNameUpdate)) {				
+				isLastNameUpdated = true;
+				logger.info("Last Name is Updated in Usermenu");
+			}else {
+				isLastNameUpdated= false;
+				logger.info("Can not update Last Name in Usermenu");
+			}
+		}
+		return isLastNameUpdated;
+	}
+	
+	public boolean isLastNameUpdatedInBreadCrumb(WebDriver driver) throws IOException {
+		
+		String lastNameUpdate = DataUtils.readLoginTestData("lastNameAsAbcd");
+		boolean isLastNameUpdated = false;
+		if(userProfilePageNameDisplay.isDisplayed()) {
+			String breadCrumbName =userProfilePageNameDisplay.getText();
+			if(breadCrumbName.contains(lastNameUpdate)) {				
+				isLastNameUpdated = true;
+				logger.info("Last Name is Updated in BreadCrumb");
+			}else {
+				isLastNameUpdated= false;
+				logger.info("Can not update Last Name in BreadCrumb");
+			}
+		}
+		return isLastNameUpdated;
+	}
+public boolean isLastNameUpdatedInPageTitle(WebDriver driver) throws IOException {
+		
+		String lastNameUpdate = DataUtils.readLoginTestData("lastNameAsAbcd");
+		boolean isLastNameUpdated = false;
+		if(userProfilePageNameDisplay.isDisplayed()) {
+			String pageTitle = "User: "+getUserName(driver)+" ~ Salesforce - Developer Edition";
+			if(pageTitle.contains(lastNameUpdate)) {				
+				isLastNameUpdated = true;
+				logger.info("Last Name is Updated in Page Title");
+			}else {
+				isLastNameUpdated= false;
+				logger.info("Can not update Last Name in Page Title");
+			}
+		}
+		return isLastNameUpdated;
+	}
+	
 	public boolean veriyfyCreatePost(WebDriver driver) throws IOException {
 		String message = DataUtils.readLoginTestData("createPostContent");
 		boolean isPostCreated = false;
@@ -592,4 +670,5 @@ public class UserMenuPage extends BasePage{
 	public WebElement getLogoutLink() {		
 		return logout;
 	}
+	
 }

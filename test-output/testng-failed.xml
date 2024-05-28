@@ -3,15 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="tests.ContactsTest">
+      <class name="tests.RandomScenariosTest">
         <methods>
-          <include name="postCondition"/>
+          <include name="verifyLastNameUpadate_TC34"/>
           <include name="preCondition"/>
+          <include name="postCondition"/>
           <include name="tearDownConfiguration"/>
           <include name="doConfiguration"/>
-          <include name="saveAndNewBtnForContact_TC32"/>
         </methods>
-      </class> <!-- tests.ContactsTest -->
+      </class> <!-- tests.RandomScenariosTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
