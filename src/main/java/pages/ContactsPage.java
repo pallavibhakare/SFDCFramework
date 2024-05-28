@@ -79,6 +79,11 @@ public class ContactsPage extends BasePage {
 	@FindBy(xpath = "//div[@class='requiredInput']/div[@class='errorMsg']")
 	public WebElement errorMsgViewName; 
 	
+	@FindBy(xpath = "//div[@class='pbHeader']/table/tbody/tr/td[@class='pbButtonb']/input[2]")
+	public WebElement cancelBtn; 
+	
+	@FindBy(xpath = "//td[@id='bottomButtonRow']/input[@value='Save & New']")
+	public WebElement saveAndNew; 
 	
 	
 	public void getContactTab(WebDriver driver) {
@@ -89,7 +94,8 @@ public class ContactsPage extends BasePage {
 	public boolean isContactsHomePage(WebDriver driver) throws IOException {
 		boolean isContactsHomePage = false;
 		String actualT = driver.getTitle();
-		String expectedT = DataUtils.readLoginTestData("contactsHomePageTitle");		
+		String expectedT = DataUtils.readLoginTestData("contactsHomePageTitle");
+		
 		if(actualT.equals(expectedT)) {
 			isContactsHomePage = true;
 			logger.info("Contacts Home page is loaded");
@@ -119,7 +125,7 @@ public class ContactsPage extends BasePage {
 		}
 		return isNewContactsHomePage;
 	}
-	public void getAccountName(WebDriver driver, WebElement ele) {
+	public void getAccountName(WebDriver driver, WebElement ele) throws IOException {
 		ele.click();
 		WebElementUtils.clickAndSwitchToNewWindow(driver, accountNamePicker);
 		driver.switchTo().frame(searchFrame);
@@ -200,6 +206,10 @@ public class ContactsPage extends BasePage {
 	}
 	public String getCreateNewViewUniqueName(WebDriver driver) throws IOException {
 		return DataUtils.readLoginTestData("viewUniqueName");		
+	}
+	
+	public String getViewName(WebDriver driver) throws IOException {
+		return DataUtils.readLoginTestData("viewName");		
 	}
 	
 	public boolean isViewNameEntered(WebDriver driver) {
@@ -347,6 +357,70 @@ public class ContactsPage extends BasePage {
 		return selectedFirstContact.getText();
 	}
 
+	public void createViewForCancel(WebDriver driver) throws IOException {
+		viewNameField.clear();
+		try {
+			viewNameField.sendKeys(DataUtils.readLoginTestData("viewNameForCancelFunction"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		viewUniqueNameField.clear();
+		viewUniqueNameField.sendKeys(DataUtils.readLoginTestData("viewUniqueNameForCancelFunction"));	
+	}
+
+	public void cancelCreateViewCreation(WebDriver driver) {
+		cancelBtn.click();
+	}
 	
+	public String getViewNameForCancel(WebDriver driver) throws IOException {
+		return DataUtils.readLoginTestData("viewNameForCancelFunction");		
+	}
+	
+
+	public boolean isViewCreationCancelled(WebDriver driver) throws IOException {
+		boolean isViewCreationCancelled= false;
+		if(isContactsHomePage(driver)) {
+			isViewCreationCancelled = true;
+			logger.info("Cancel the view creation and back to Contacts Home Page");
+		}else {
+			isViewCreationCancelled = false;
+			logger.info("Can not perform cancel");
+		}
+		
+		return isViewCreationCancelled;
+	}
+
+	public void getAccountNameBysearchText(WebDriver driver, WebElement ele) throws IOException {
+		ele.click();
+		WebElementUtils.clickAndSwitchToNewWindow(driver, accountNamePicker);
+		driver.switchTo().frame(searchFrame);
+		searchInput.sendKeys(DataUtils.readLoginTestData("acccountSearchText"));
+		goBtn.click();
+		driver.switchTo().parentFrame();
+		driver.switchTo().frame(searchResult);
+		WebElementUtils.selectFirstCellInTable(driver, tableElement);
+	}
+	public void newContactDetails(WebDriver driver) throws IOException {
+		lastName.sendKeys(DataUtils.readLoginTestData("newContacLastNameForSaveAndNew"));
+		String mainWindowHandle = driver.getWindowHandle();
+		getAccountNameBysearchText(driver, accountNamePicker);
+		driver.switchTo().window(mainWindowHandle);
+	}
+	public boolean isLastNameFieldEntered1(WebDriver driver) throws IOException {
+		boolean isLastNameEntered =false;
+		String actual = lastName.getAttribute("value");		
+		String expected = DataUtils.readLoginTestData("newContacLastNameForSaveAndNew");		
+		if(actual.equals(expected)) {
+			isLastNameEntered = true;
+		}else {
+			isLastNameEntered = false;
+		}
+		return isLastNameEntered;
+	}
+	
+	public void saveAndNewAction(WebDriver driver) {
+		saveAndNew.click();		
+	}
 
 }

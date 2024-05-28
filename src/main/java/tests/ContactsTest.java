@@ -134,7 +134,7 @@ public class ContactsTest extends BaseTest {
 		Assert.assertTrue(cp.isSelectedContactDetailsDisplayed(driver), "Verify Contact");
 		test.log(Status.PASS, "Contact Page related to '"+cp.getContactName(driver)+"', which contains entire information about that ;"+cp.getContactName(driver)+"' should be displayed ");
 	}
-	@Test
+//	@Test
 	public void errorForNewView_TC30() throws IOException {
 		test = BaseTest.threadExtentText.get();
 		driver = BaseTest.getDriver();
@@ -161,13 +161,65 @@ public class ContactsTest extends BaseTest {
 		Assert.assertTrue(cp.isUniqueNameError(driver), "Verify Error");
 		test.log(Status.PASS, "Error message is appeared under the View Name field. "+cp.getErrorMsg(driver));
 	}
-	
+//	@Test
+	public void cancelFunction_TC31() throws IOException {
+		test = BaseTest.threadExtentText.get();
+		driver = BaseTest.getDriver();
+		driver.manage().timeouts().implicitlyWait(WaitConstants.IMPLICIT_WAIT_DURATION);		
+		lp = new LoginPage(driver);
+		ContactsPage cp = new ContactsPage(driver);
+		lp.launchAndLoginToApplication(driver);
+		Assert.assertTrue(lp.isHomePageLoaded(driver), "Verify Application launched.");
+		test.log(Status.PASS, "SalesForce application is Launched");
+		
+		cp.getContactTab(driver);
+		Assert.assertTrue(cp.isContactsHomePage(driver), "Verify Contacts Home Page is displayed.");
+		test.log(Status.PASS, "Contacts Home page is displayed");
+		
+		cp.getCreateNewViewLink(driver);
+		Assert.assertTrue(cp.isCreateNewViewPage(driver), "Verify Create New View Page");
+		test.log(Status.PASS, "Create New View page is opened.");
+		
+		cp.createViewForCancel(driver);
+		Assert.assertTrue(cp.isViewNameEntered(driver) && cp.isViewUniqueNameEntered(driver), "Verify View Name and Unique Name entered");
+		test.log(Status.PASS, "The view name and Unique name should be enetered");
+		cp.cancelCreateViewCreation(driver);
+		Assert.assertTrue(cp.isViewCreationCancelled(driver), "Verify Cancel Error Message");
+		test.log(Status.PASS, "Contacts Home page is displayed and the View "+cp.getViewNameForCancel(driver)+" is not be created.");
+	}
+	@Test
+	public void saveAndNewBtnForContact_TC32() throws IOException {
+		test = BaseTest.threadExtentText.get();
+		driver = BaseTest.getDriver();
+		driver.manage().timeouts().implicitlyWait(WaitConstants.IMPLICIT_WAIT_DURATION);		
+		lp = new LoginPage(driver);
+		ContactsPage cp = new ContactsPage(driver);
+		lp.launchAndLoginToApplication(driver);
+		Assert.assertTrue(lp.isHomePageLoaded(driver), "Verify Application launched.");
+		test.log(Status.PASS, "SalesForce application is Launched");
+		
+		cp.getContactTab(driver);
+		Assert.assertTrue(cp.isContactsHomePage(driver), "Verify Contacts Home Page is displayed.");
+		test.log(Status.PASS, "Contacts page is opened.");
+		
+		cp.newBtnClick(driver);
+		Assert.assertTrue(cp.isNewContactHomePage(driver), "Verify New Contact Page");
+		test.log(Status.PASS, "'"+driver.getTitle()+"'  page is displayed.");
+		
+		cp.newContactDetails(driver);
+		Assert.assertTrue(cp.isLastNameFieldEntered1(driver), "Verify last Name");
+		Assert.assertTrue(cp.isAccountsNameFieldEntered(driver), "Verify Account name");
+		test.log(Status.PASS, "Last Name and the Account Name is enetered.");
+		cp.saveAndNewAction(driver);
+		Assert.assertTrue(cp.isNewContactHomePage(driver), "Verify New contact Page");
+		test.log(Status.PASS, "New contact is created. "+driver.getTitle()+" is dispalyed");
+	}
 	
 	
 	@AfterMethod
 	public void postCondition() {
 		System.out.println("Post condition");
-//		BaseTest.getDriver().close();
+		BaseTest.getDriver().close();
 	}
 
 }

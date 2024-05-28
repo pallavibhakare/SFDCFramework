@@ -1,0 +1,10 @@
+2024-05-26-17:16:45 INFO  Salesforce login page is launched and application
+2024-05-26-17:16:45 INFO  Signing in to application
+2024-05-26-17:16:51 INFO  Should be Signing in to application
+2024-05-26-17:16:51 INFO  Home page is displayed.
+2024-05-26-17:16:53 INFO  Contacts Home page is loaded
+2024-05-26-17:16:53 INFO  Create New View page is loaded.
+2024-05-26-17:16:53 INFO  View Name is entered
+2024-05-26-17:16:53 INFO  View Unique Name is Created
+2024-05-26-17:16:54 INFO  Contacts Home page is loaded
+2024-05-26-17:16:54 INFO  Cancel the view creation and back to Contacts Home Page

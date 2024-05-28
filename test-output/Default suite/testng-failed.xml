@@ -6,10 +6,10 @@
       <class name="tests.ContactsTest">
         <methods>
           <include name="postCondition"/>
-          <include name="viewAContact_TC29"/>
-          <include name="tearDownConfiguration"/>
           <include name="preCondition"/>
+          <include name="tearDownConfiguration"/>
           <include name="doConfiguration"/>
+          <include name="saveAndNewBtnForContact_TC32"/>
         </methods>
       </class> <!-- tests.ContactsTest -->
     </classes>
