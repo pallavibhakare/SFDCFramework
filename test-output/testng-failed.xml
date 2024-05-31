@@ -5,7 +5,7 @@
     <classes>
       <class name="tests.RandomScenariosTest">
         <methods>
-          <include name="verifyLastNameUpadate_TC34"/>
+          <include name="blockingAnEventInTheCalender_TC36"/>
           <include name="preCondition"/>
           <include name="postCondition"/>
           <include name="tearDownConfiguration"/>

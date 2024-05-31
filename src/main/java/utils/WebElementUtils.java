@@ -127,4 +127,28 @@ public class WebElementUtils {
 	    
 	}
 	
+	public static String selectTimeOption(WebDriver driver, String optionText) {
+		boolean isOptionVerified = false;
+		try {
+//            Select select = new Select(dropdownElement);
+//            List<WebElement> tabs = driver.findElements(By.cssSelector(".hourRowLabel a"));
+            List<WebElement> options = driver.findElements(By.cssSelector(".hourRowLabel a"));
+            for (WebElement option : options) {
+                if (option.getText().equals(optionText)) {
+                    option.click();
+                    System.out.println("Time '" + optionText + "' selected from Options");
+                    isOptionVerified = true;
+                    break;
+                }
+            }
+            if (!isOptionVerified) {
+                System.out.println("Can not select Timee '" + optionText );
+            }
+        } catch (Exception e) {
+            System.out.println("Exception occurred while selecting Time '" + optionText + "': " + e.getMessage());
+        }
+        return optionText;
+	    
+	}
+	
 }

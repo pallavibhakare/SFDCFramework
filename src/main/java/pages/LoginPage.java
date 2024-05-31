@@ -1,10 +1,13 @@
 package pages;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import tests.BaseTest;
 import utils.DataUtils;
 import utils.WaitUtils;
@@ -89,6 +92,7 @@ public class LoginPage extends BasePage{
 		this.passwordField.clear();
 		this.passwordField.sendKeys(userPassword);
 		this.loginButton.click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		logger.info("Should be Signing in to application");
 	}
 

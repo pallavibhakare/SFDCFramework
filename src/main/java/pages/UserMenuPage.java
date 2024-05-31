@@ -532,7 +532,7 @@ public class UserMenuPage extends BasePage{
 		}
 		return isLastNameUpdated;
 	}
-public boolean isLastNameUpdatedInPageTitle(WebDriver driver) throws IOException {
+	public boolean isLastNameUpdatedInPageTitle(WebDriver driver) throws IOException {
 		
 		String lastNameUpdate = DataUtils.readLoginTestData("lastNameAsAbcd");
 		boolean isLastNameUpdated = false;
